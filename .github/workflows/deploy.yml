@@ -13,10 +13,15 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v4
 
-      - name: Install Neocities CLI
-        run: npm install -g neocities
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Neocities CLI locally
+        run: npm install neocities
 
       - name: Deploy site to Neocities
         env:
           NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
-        run: npx neocities push .
+        run: ./node_modules/.bin/neocities push .
