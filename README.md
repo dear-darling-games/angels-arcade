@@ -1,2 +1,2 @@
 # angels-arcade
-For Daniel. &lt;3
+For Daniel &lt;3
