@@ -18,13 +18,13 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install neocities
+      - name: Install Neocities CLI globally
+        run: npm install -g neocities
 
-      - name: Show installed binaries
-        run: ls -la node_modules/.bin
+      - name: Show global npm bin path
+        run: npm prefix -g
 
       - name: Deploy site to Neocities
         env:
           NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
-        run: node node_modules/neocities/bin/neocities.js push .
+        run: $(npm prefix -g)/bin/neocities push .
