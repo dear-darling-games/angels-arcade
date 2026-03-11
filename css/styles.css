@@ -1,0 +1,50 @@
+body {
+
+background: #111;
+color: white;
+font-family: monospace;
+
+margin: 0;
+padding: 0;
+
+}
+
+.hub {
+
+text-align: center;
+padding: 60px;
+
+}
+
+.game-grid {
+
+margin-top: 40px;
+
+display: grid;
+grid-template-columns: repeat(2, 200px);
+gap: 20px;
+
+justify-content: center;
+
+}
+
+button {
+
+background: #222;
+color: white;
+
+border: 2px solid white;
+
+padding: 14px;
+
+font-size: 16px;
+
+cursor: pointer;
+
+}
+
+button:hover {
+
+background: #333;
+
+}
