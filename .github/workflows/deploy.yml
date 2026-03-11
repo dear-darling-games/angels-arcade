@@ -9,19 +9,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    concurrency:
+      group: neocities-deploy
+      cancel-in-progress: true
+
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - name: Deploy to Neocities
+        uses: bcomnes/deploy-to-neocities@v3
         with:
-          node-version: 20
-
-      - name: Install Neocities CLI globally
-        run: npm install -g neocities
-
-      - name: Deploy site to Neocities
-        env:
-          NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
-        run: node $(npm root -g)/neocities/bin/neocities.js push .
+          api_token: ${{ secrets.NEOCITIES_API_KEY }}
+          dist_dir: .
+          cleanup: false
