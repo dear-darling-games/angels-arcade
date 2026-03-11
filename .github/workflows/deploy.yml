@@ -19,4 +19,4 @@ jobs:
       - name: Deploy site to Neocities
         env:
           NEOCITIES_API_KEY: ${{ secrets.NEOCITIES_API_KEY }}
-        run: neocities push .
+        run: npx neocities push .
