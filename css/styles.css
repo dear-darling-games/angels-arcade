@@ -98,11 +98,8 @@ body {
   position: fixed;
   left: 50%;
   top: 53%;
-
   transform: translate(-50%, -50%);
-
   width: min(210px, 20vw);
-
   z-index: 1;
   pointer-events: none;
 
@@ -111,6 +108,7 @@ body {
   mix-blend-mode: screen;
 
   filter:
+    brightness(0.7)
     drop-shadow(0 0 10px rgba(0, 224, 160, 0.16))
     drop-shadow(0 0 22px rgba(0, 224, 160, 0.08));
 }
