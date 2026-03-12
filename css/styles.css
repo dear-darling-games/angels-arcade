@@ -21,7 +21,7 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   color: var(--text-main);
   background:
-    linear-gradient(rgba(4, 4, 10, 0.20), rgba(4, 4, 12, 0.52)),
+    linear-gradient(rgba(4, 4, 10, 0.18), rgba(4, 4, 12, 0.50)),
     url("../assets/assetscathedral-bg.png.png") center center / cover no-repeat fixed;
 }
 
@@ -32,10 +32,10 @@ body {
   text-align: center;
 }
 
-/* TOP BLOCK */
+/* TOP */
 .hero {
   position: absolute;
-  top: 3.5vh;
+  top: 3vh;
   left: 50%;
   transform: translateX(-50%);
   width: min(92vw, 760px);
@@ -44,25 +44,25 @@ body {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(3.2rem, 8vw, 6rem);
+  font-size: clamp(3.1rem, 8vw, 6rem);
   line-height: 0.9;
   letter-spacing: 0.04em;
   color: #f0dcff;
   text-shadow:
-    0 0 12px rgba(178, 102, 255, 0.78),
-    0 0 24px rgba(138, 43, 226, 0.24);
+    0 0 10px rgba(178, 102, 255, 0.74),
+    0 0 22px rgba(138, 43, 226, 0.22);
 }
 
 .tagline {
-  margin: 16px 0 0;
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  margin: 14px 0 0;
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
   color: var(--text-soft);
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
 .enter-btn {
   display: inline-block;
-  margin-top: 24px;
+  margin-top: 22px;
   padding: 14px 34px;
   border-radius: 999px;
   text-decoration: none;
@@ -71,49 +71,49 @@ body {
   font-weight: bold;
   letter-spacing: 0.08em;
   background:
-    linear-gradient(180deg, rgba(18, 95, 63, 0.90), rgba(9, 53, 36, 0.92));
-  border: 1px solid rgba(150, 255, 220, 0.42);
+    linear-gradient(180deg, rgba(18, 95, 63, 0.88), rgba(9, 53, 36, 0.90));
+  border: 1px solid rgba(150, 255, 220, 0.38);
   box-shadow:
-    0 0 12px rgba(0, 224, 160, 0.18),
-    inset 0 0 10px rgba(208, 255, 237, 0.06);
+    0 0 10px rgba(0, 224, 160, 0.16),
+    inset 0 0 8px rgba(208, 255, 237, 0.05);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .enter-btn:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 0 18px rgba(0, 224, 160, 0.26),
-    inset 0 0 10px rgba(208, 255, 237, 0.10);
+    0 0 16px rgba(0, 224, 160, 0.22),
+    inset 0 0 8px rgba(208, 255, 237, 0.08);
 }
 
 .featured-label {
-  margin: 34px 0 0;
+  margin: 26px 0 0;
   font-size: 1rem;
   color: #ebc8ff;
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* LOCKED FOUNTAIN */
+/* FOUNTAIN */
 .fountain {
   position: fixed;
   left: 50%;
-  top: 68%;
+  top: 69%;
   transform: translate(-50%, -50%);
-  width: min(230px, 22vw);
+  width: min(170px, 16vw);
   z-index: 1;
   pointer-events: none;
-  opacity: 0.56;
+  opacity: 0.34;
   mix-blend-mode: screen;
   filter:
-    drop-shadow(0 0 10px rgba(0, 224, 160, 0.12))
-    drop-shadow(0 0 22px rgba(0, 224, 160, 0.06));
+    drop-shadow(0 0 6px rgba(0, 224, 160, 0.08))
+    drop-shadow(0 0 14px rgba(0, 224, 160, 0.04));
 }
 
-/* BOTTOM LAYER */
+/* BOTTOM */
 .games-layer {
   position: absolute;
   left: 50%;
-  bottom: 4.5vh;
+  bottom: 4.25vh;
   transform: translateX(-50%);
   width: min(92vw, 560px);
   z-index: 2;
@@ -123,25 +123,25 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   width: min(380px, 100%);
   margin: 0 auto;
 }
 
 .game-grid a {
-  min-width: 116px;
+  min-width: 110px;
   padding: 10px 16px;
   border-radius: 999px;
   text-decoration: none;
   text-align: center;
   color: #f8f2ff;
-  font-size: 0.96rem;
+  font-size: 0.95rem;
   background:
-    linear-gradient(180deg, rgba(82, 35, 145, 0.92), rgba(32, 13, 63, 0.94));
-  border: 1px solid rgba(217, 178, 255, 0.28);
+    linear-gradient(180deg, rgba(82, 35, 145, 0.90), rgba(32, 13, 63, 0.92));
+  border: 1px solid rgba(217, 178, 255, 0.26);
   box-shadow:
-    0 8px 18px rgba(0, 0, 0, 0.30),
-    0 0 10px rgba(178, 102, 255, 0.14);
+    0 8px 18px rgba(0, 0, 0, 0.28),
+    0 0 8px rgba(178, 102, 255, 0.12);
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -150,15 +150,15 @@ body {
 
 .game-grid a:hover {
   transform: translateY(-2px);
-  border-color: rgba(0, 224, 160, 0.40);
+  border-color: rgba(0, 224, 160, 0.34);
   box-shadow:
-    0 10px 22px rgba(0, 0, 0, 0.34),
-    0 0 12px rgba(0, 224, 160, 0.10),
-    0 0 14px rgba(178, 102, 255, 0.18);
+    0 10px 22px rgba(0, 0, 0, 0.32),
+    0 0 10px rgba(0, 224, 160, 0.08),
+    0 0 12px rgba(178, 102, 255, 0.16);
 }
 
 .room-copy {
-  margin: 26px auto 0;
+  margin: 24px auto 0;
   max-width: 520px;
   font-size: 0.98rem;
   line-height: 1.4;
@@ -180,9 +180,9 @@ body {
   }
 
   .fountain {
-    top: 69%;
-    width: min(210px, 24vw);
-    opacity: 0.52;
+    top: 70%;
+    width: min(155px, 18vw);
+    opacity: 0.31;
   }
 
   .games-layer {
@@ -206,23 +206,23 @@ body {
   }
 
   .enter-btn {
-    margin-top: 22px;
+    margin-top: 20px;
     padding: 12px 28px;
     font-size: 0.95rem;
   }
 
   .featured-label {
-    margin-top: 28px;
+    margin-top: 24px;
     font-size: 0.98rem;
   }
 
   .fountain {
-    top: 70%;
-    width: min(180px, 28vw);
-    opacity: 0.48;
+    top: 71%;
+    width: min(138px, 22vw);
+    opacity: 0.28;
     filter:
-      drop-shadow(0 0 8px rgba(0, 224, 160, 0.10))
-      drop-shadow(0 0 16px rgba(0, 224, 160, 0.05));
+      drop-shadow(0 0 5px rgba(0, 224, 160, 0.06))
+      drop-shadow(0 0 10px rgba(0, 224, 160, 0.03));
   }
 
   .games-layer {
@@ -232,11 +232,11 @@ body {
 
   .game-grid {
     width: min(340px, 100%);
-    gap: 12px;
+    gap: 10px;
   }
 
   .game-grid a {
-    min-width: 102px;
+    min-width: 98px;
     font-size: 0.9rem;
     padding: 9px 14px;
   }
@@ -259,28 +259,28 @@ body {
   }
 
   .tagline {
-    margin-top: 14px;
+    margin-top: 12px;
     font-size: 0.95rem;
   }
 
   .enter-btn {
-    margin-top: 20px;
-    padding: 12px 26px;
+    margin-top: 18px;
+    padding: 12px 24px;
     font-size: 0.92rem;
   }
 
   .featured-label {
-    margin-top: 26px;
+    margin-top: 22px;
     font-size: 0.94rem;
   }
 
   .fountain {
-    top: 71%;
-    width: min(145px, 34vw);
-    opacity: 0.42;
+    top: 72%;
+    width: min(108px, 28vw);
+    opacity: 0.24;
     filter:
-      drop-shadow(0 0 6px rgba(0, 224, 160, 0.08))
-      drop-shadow(0 0 12px rgba(0, 224, 160, 0.04));
+      drop-shadow(0 0 4px rgba(0, 224, 160, 0.05))
+      drop-shadow(0 0 8px rgba(0, 224, 160, 0.02));
   }
 
   .games-layer {
@@ -290,23 +290,23 @@ body {
 
   .game-grid {
     width: min(320px, 100%);
-    gap: 10px;
+    gap: 9px;
   }
 
   .game-grid a {
-    min-width: 92px;
+    min-width: 90px;
     font-size: 0.86rem;
     padding: 8px 12px;
   }
 
   .room-copy {
     max-width: 300px;
-    margin-top: 18px;
+    margin-top: 16px;
     font-size: 0.9rem;
   }
 
   .credit {
-    margin-top: 12px;
+    margin-top: 10px;
     font-size: 0.84rem;
   }
 }
