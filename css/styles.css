@@ -32,9 +32,10 @@ body {
   text-align: center;
 }
 
+/* TOP BLOCK */
 .hero {
   position: absolute;
-  top: 4.5vh;
+  top: 3.5vh;
   left: 50%;
   transform: translateX(-50%);
   width: min(92vw, 760px);
@@ -43,17 +44,17 @@ body {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(3.2rem, 8vw, 6.2rem);
-  line-height: 0.92;
+  font-size: clamp(3.2rem, 8vw, 6rem);
+  line-height: 0.9;
   letter-spacing: 0.04em;
   color: #f0dcff;
   text-shadow:
-    0 0 12px rgba(178, 102, 255, 0.82),
-    0 0 28px rgba(138, 43, 226, 0.28);
+    0 0 12px rgba(178, 102, 255, 0.78),
+    0 0 24px rgba(138, 43, 226, 0.24);
 }
 
 .tagline {
-  margin: 14px 0 0;
+  margin: 16px 0 0;
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   color: var(--text-soft);
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
@@ -61,7 +62,7 @@ body {
 
 .enter-btn {
   display: inline-block;
-  margin-top: 26px;
+  margin-top: 24px;
   padding: 14px 34px;
   border-radius: 999px;
   text-decoration: none;
@@ -86,33 +87,33 @@ body {
 }
 
 .featured-label {
-  margin: 28px 0 0;
+  margin: 34px 0 0;
   font-size: 1rem;
   color: #ebc8ff;
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* FOUNTAIN */
+/* LOCKED FOUNTAIN */
 .fountain {
   position: fixed;
   left: 50%;
-  top: 70%;
+  top: 68%;
   transform: translate(-50%, -50%);
-  width: min(175px, 16vw);
+  width: min(230px, 22vw);
   z-index: 1;
   pointer-events: none;
-  opacity: 0.42;
+  opacity: 0.56;
   mix-blend-mode: screen;
   filter:
-    drop-shadow(0 0 8px rgba(0, 224, 160, 0.10))
-    drop-shadow(0 0 16px rgba(0, 224, 160, 0.05));
+    drop-shadow(0 0 10px rgba(0, 224, 160, 0.12))
+    drop-shadow(0 0 22px rgba(0, 224, 160, 0.06));
 }
 
 /* BOTTOM LAYER */
 .games-layer {
   position: absolute;
   left: 50%;
-  bottom: 5vh;
+  bottom: 4.5vh;
   transform: translateX(-50%);
   width: min(92vw, 560px);
   z-index: 2;
@@ -122,19 +123,19 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-  width: min(360px, 100%);
+  gap: 14px;
+  width: min(380px, 100%);
   margin: 0 auto;
 }
 
 .game-grid a {
-  min-width: 104px;
+  min-width: 116px;
   padding: 10px 16px;
   border-radius: 999px;
   text-decoration: none;
   text-align: center;
   color: #f8f2ff;
-  font-size: 0.94rem;
+  font-size: 0.96rem;
   background:
     linear-gradient(180deg, rgba(82, 35, 145, 0.92), rgba(32, 13, 63, 0.94));
   border: 1px solid rgba(217, 178, 255, 0.28);
@@ -157,7 +158,7 @@ body {
 }
 
 .room-copy {
-  margin: 24px auto 0;
+  margin: 26px auto 0;
   max-width: 520px;
   font-size: 0.98rem;
   line-height: 1.4;
@@ -175,13 +176,13 @@ body {
 /* LARGE LAPTOP / SMALL DESKTOP */
 @media (max-width: 1100px) {
   .hero {
-    top: 4vh;
+    top: 3vh;
   }
 
   .fountain {
-    top: 71%;
-    width: min(160px, 18vw);
-    opacity: 0.40;
+    top: 69%;
+    width: min(210px, 24vw);
+    opacity: 0.52;
   }
 
   .games-layer {
@@ -192,7 +193,7 @@ body {
 /* TABLET */
 @media (max-width: 768px) {
   .hero {
-    top: 3vh;
+    top: 2.5vh;
     width: min(94vw, 560px);
   }
 
@@ -200,17 +201,28 @@ body {
     font-size: clamp(3rem, 10vw, 5rem);
   }
 
-  .featured-label {
+  .tagline {
+    font-size: 0.98rem;
+  }
+
+  .enter-btn {
     margin-top: 22px;
+    padding: 12px 28px;
+    font-size: 0.95rem;
+  }
+
+  .featured-label {
+    margin-top: 28px;
+    font-size: 0.98rem;
   }
 
   .fountain {
-    top: 72%;
-    width: min(145px, 24vw);
-    opacity: 0.36;
+    top: 70%;
+    width: min(180px, 28vw);
+    opacity: 0.48;
     filter:
-      drop-shadow(0 0 6px rgba(0, 224, 160, 0.08))
-      drop-shadow(0 0 12px rgba(0, 224, 160, 0.04));
+      drop-shadow(0 0 8px rgba(0, 224, 160, 0.10))
+      drop-shadow(0 0 16px rgba(0, 224, 160, 0.05));
   }
 
   .games-layer {
@@ -219,12 +231,12 @@ body {
   }
 
   .game-grid {
-    width: min(320px, 100%);
-    gap: 10px;
+    width: min(340px, 100%);
+    gap: 12px;
   }
 
   .game-grid a {
-    min-width: 94px;
+    min-width: 102px;
     font-size: 0.9rem;
     padding: 9px 14px;
   }
@@ -238,36 +250,37 @@ body {
 /* MOBILE */
 @media (max-width: 480px) {
   .hero {
-    top: 2.5vh;
+    top: 2vh;
     width: 94vw;
   }
 
   .hero h1 {
-    font-size: clamp(2.8rem, 14vw, 4.4rem);
+    font-size: clamp(2.7rem, 14vw, 4.2rem);
   }
 
   .tagline {
-    font-size: 0.96rem;
+    margin-top: 14px;
+    font-size: 0.95rem;
   }
 
   .enter-btn {
-    margin-top: 22px;
-    padding: 12px 28px;
-    font-size: 0.94rem;
+    margin-top: 20px;
+    padding: 12px 26px;
+    font-size: 0.92rem;
   }
 
   .featured-label {
-    margin-top: 20px;
-    font-size: 0.96rem;
+    margin-top: 26px;
+    font-size: 0.94rem;
   }
 
   .fountain {
-    top: 73%;
-    width: min(115px, 30vw);
-    opacity: 0.30;
+    top: 71%;
+    width: min(145px, 34vw);
+    opacity: 0.42;
     filter:
-      drop-shadow(0 0 4px rgba(0, 224, 160, 0.06))
-      drop-shadow(0 0 8px rgba(0, 224, 160, 0.03));
+      drop-shadow(0 0 6px rgba(0, 224, 160, 0.08))
+      drop-shadow(0 0 12px rgba(0, 224, 160, 0.04));
   }
 
   .games-layer {
@@ -276,12 +289,12 @@ body {
   }
 
   .game-grid {
-    width: min(300px, 100%);
-    gap: 9px;
+    width: min(320px, 100%);
+    gap: 10px;
   }
 
   .game-grid a {
-    min-width: 88px;
+    min-width: 92px;
     font-size: 0.86rem;
     padding: 8px 12px;
   }
@@ -289,17 +302,11 @@ body {
   .room-copy {
     max-width: 300px;
     margin-top: 18px;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
   }
 
   .credit {
     margin-top: 12px;
-    font-size: 0.86rem;
-  }
-}
-
-  .credit {
-    margin-top: 12px;
-    font-size: 0.86rem;
+    font-size: 0.84rem;
   }
 }
