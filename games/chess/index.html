@@ -12,8 +12,8 @@
       --panel-border: rgba(212, 175, 55, 0.22);
       --text: #f3e7b3;
       --muted: #cabd8a;
-      --light: #e6d4a8;
-      --dark: #8c6a3c;
+      --light: #d9cdee;
+      --dark: #0f5c4f;
       --selected: #63d58d;
       --move: rgba(99, 213, 141, 0.36);
       --capture: rgba(255, 120, 120, 0.42);
@@ -160,8 +160,16 @@
       transition: filter 0.15s ease;
     }
 
-    .square.light { background: var(--light); }
-    .square.dark { background: var(--dark); }
+    .square.light {
+      background:
+        radial-gradient(circle at 30% 24%, rgba(255,255,255,0.24), transparent 38%),
+        linear-gradient(180deg, #e4d8f5, #d9cdee 62%, #cdbfe7);
+    }
+    .square.dark {
+      background:
+        radial-gradient(circle at 30% 24%, rgba(255,255,255,0.14), transparent 34%),
+        linear-gradient(180deg, #167765, #0f5c4f 60%, #0b473e);
+    }
     .square:hover { filter: brightness(1.03); }
     .square.selected { box-shadow: inset 0 0 0 4px var(--selected); }
     .square.last-move { box-shadow: inset 0 0 0 999px rgba(212,175,55,0.12); }
@@ -192,6 +200,16 @@
     .piece {
       line-height: 1;
       filter: drop-shadow(0 1px 0 rgba(255,255,255,0.12)) drop-shadow(0 5px 8px rgba(0,0,0,0.24));
+    }
+
+    .piece.white-piece {
+      color: #f4ecff;
+      text-shadow: 0 0 10px rgba(244, 236, 255, 0.18);
+    }
+
+    .piece.black-piece {
+      color: #08110f;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.06);
     }
 
     .sidebar {
@@ -1144,7 +1162,7 @@
           const piece = state.board[r][c];
           if (piece) {
             const pieceEl = document.createElement("span");
-            pieceEl.className = "piece";
+            pieceEl.className = `piece ${pieceColor(piece) === "w" ? "white-piece" : "black-piece"}`;
             pieceEl.textContent = PIECE_UNICODE[piece];
             square.appendChild(pieceEl);
           }
