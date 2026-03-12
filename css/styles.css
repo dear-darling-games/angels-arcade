@@ -97,7 +97,7 @@ body {
 .fountain {
   position: fixed;
   left: 50%;
-  top: 63%;
+  top: 53%;
 
   transform: translate(-50%, -50%);
 
@@ -106,7 +106,7 @@ body {
   z-index: 1;
   pointer-events: none;
 
-  opacity: 0.48;
+  opacity: 0.58;
 
   mix-blend-mode: screen;
 
