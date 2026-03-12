@@ -1,32 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-<meta charset="UTF-8">
-<title>Angel's Arcade</title>
-
-<link rel="stylesheet" href="css/styles.css">
-
-</head>
-
 <body>
 
-<div class="hub">
+<div class="page">
 
-<h1>Angel's Arcade</h1>
+  <header class="title">
+    <h1>ANGEL'S ARCADE</h1>
+    <p>Wanna play, Sir?</p>
+  </header>
 
-<p>Wanna play, Sir? 💙</p>
+  <section class="fountain">
+    <img src="fountain.png" alt="Emerald fountain">
+  </section>
 
-<div class="game-grid">
+  <section class="library">
 
-<button onclick="openRoom('chess')">Chess</button>
-<button onclick="openRoom('checkers')">Checkers</button>
-<button onclick="openRoom('uno')">Uno</button>
-<button onclick="openRoom('dressup')">Dress-Up</button>
+    <h2>Game Library</h2>
+
+    <ul class="game-list">
+      <li><a href="/games/chess/">Chess</a></li>
+      <li><a href="/games/checkers/">Checkers</a></li>
+      <li><a href="/games/blackjack/">Blackjack</a></li>
+      <li><a href="/games/uno/">Uno</a></li>
+      <li><a href="/games/scrabble/">Scrabble</a></li>
+      <li><a href="/games/dressup/">Dress-Up</a></li>
+      <li><a href="/games/mancala/">Mancala</a></li>
+      <li><a href="/games/cyvasse/">Cyvasse</a></li>
+    </ul>
+
+  </section>
+
+  <footer>
+    <p>Private Rooms • Realtime Multiplayer</p>
+  </footer>
 
 </div>
 
-</div>
+</body>
 
 <script src="js/rooms.js"></script>
 
