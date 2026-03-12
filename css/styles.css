@@ -1,8 +1,15 @@
 :root {
   --text-main: #f7efff;
   --text-soft: #ddd0ee;
-  --emerald: #00e0a0;
-  --purple: #b266ff;
+
+  --emerald-1: #1f8a72;
+  --emerald-2: #0d725c;
+  --emerald-3: #084f41;
+
+  --opal-1: #9d7df0;
+  --opal-2: #7e65dd;
+  --opal-3: #666fd8;
+  --opal-4: #4d3f9f;
 }
 
 * {
@@ -22,7 +29,7 @@ body {
   color: var(--text-main);
   background:
     linear-gradient(rgba(4, 4, 10, 0.18), rgba(4, 4, 12, 0.50)),
-    url("../assets/assetscathedral-bg.png.png") center center / cover no-repeat fixed;
+    url("../assets/cathedral-bg.png") center center / cover no-repeat fixed;
 }
 
 .scene {
@@ -32,7 +39,9 @@ body {
   text-align: center;
 }
 
-/* TOP */
+/* =========================
+   TOP TEXT / TITLE AREA
+   ========================= */
 .hero {
   position: absolute;
   top: 3vh;
@@ -60,32 +69,6 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-.enter-btn {
-  display: inline-block;
-  margin-top: 22px;
-  padding: 14px 34px;
-  border-radius: 999px;
-  text-decoration: none;
-  color: #f7fff9;
-  font-size: 1rem;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  background:
-    linear-gradient(180deg, rgba(18, 95, 63, 0.88), rgba(9, 53, 36, 0.90));
-  border: 1px solid rgba(150, 255, 220, 0.38);
-  box-shadow:
-    0 0 10px rgba(0, 224, 160, 0.16),
-    inset 0 0 8px rgba(208, 255, 237, 0.05);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.enter-btn:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 16px rgba(0, 224, 160, 0.22),
-    inset 0 0 8px rgba(208, 255, 237, 0.08);
-}
-
 .featured-label {
   margin: 26px 0 0;
   font-size: 1rem;
@@ -93,7 +76,69 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* FOUNTAIN */
+/* =========================
+   MAIN EMERALD BUTTON
+   This is your primary action button.
+   If you want it more emerald:
+   - increase emerald tones
+   - brighten border/glow a little
+   If you want it darker:
+   - darken background gradient
+   - reduce box-shadow intensity
+   ========================= */
+.enter-btn {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 16px 40px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #f7fff9;
+  font-size: 1.05rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(31, 138, 114, 0.98) 0%,
+      rgba(13, 114, 92, 0.96) 42%,
+      rgba(8, 79, 65, 0.98) 100%
+    );
+
+  border: 1px solid rgba(150, 255, 220, 0.42);
+
+  box-shadow:
+    0 0 12px rgba(0, 224, 160, 0.18),
+    0 0 24px rgba(0, 170, 135, 0.10),
+    inset 0 1px 0 rgba(230, 255, 248, 0.14),
+    inset 0 -8px 14px rgba(0, 42, 34, 0.20);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.enter-btn:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(180, 255, 232, 0.56);
+
+  box-shadow:
+    0 0 16px rgba(0, 224, 160, 0.24),
+    0 0 28px rgba(0, 180, 145, 0.14),
+    inset 0 1px 0 rgba(240, 255, 250, 0.18),
+    inset 0 -8px 14px rgba(0, 42, 34, 0.24);
+}
+
+/* =========================
+   FOUNTAIN
+   Kept visible, dark, and atmospheric.
+   If you want:
+   - more visible: raise opacity or brightness
+   - darker: lower brightness
+   - softer edges: slightly increase blur
+   ========================= */
 .fountain {
   position: fixed;
   left: 50%;
@@ -103,10 +148,7 @@ body {
 
   z-index: 1;
   pointer-events: none;
-
   opacity: 0.65;
-
-  /* remove blend modes so the texture reads properly */
   mix-blend-mode: normal;
 
   filter:
@@ -118,7 +160,9 @@ body {
     drop-shadow(0 0 14px rgba(0, 224, 160, 0.04));
 }
 
-/* BOTTOM */
+/* =========================
+   LOWER CONTENT AREA
+   ========================= */
 .games-layer {
   position: absolute;
   left: 50%;
@@ -137,6 +181,15 @@ body {
   margin: 0 auto;
 }
 
+/* =========================
+   FEATURED GAME BUTTONS
+   These are your opalescent purple-blue chips.
+   If you want them:
+   - more blue: strengthen the blue stop
+   - more purple: strengthen the top purple stop
+   - shinier: brighten inset top highlight
+   - darker: deepen bottom color
+   ========================= */
 .game-grid a {
   min-width: 110px;
   padding: 10px 16px;
@@ -145,12 +198,25 @@ body {
   text-align: center;
   color: #f8f2ff;
   font-size: 0.95rem;
+
   background:
-    linear-gradient(180deg, rgba(82, 35, 145, 0.90), rgba(32, 13, 63, 0.92));
-  border: 1px solid rgba(217, 178, 255, 0.26);
+    linear-gradient(
+      180deg,
+      rgba(157, 125, 240, 0.97) 0%,
+      rgba(126, 101, 221, 0.95) 35%,
+      rgba(102, 111, 216, 0.92) 68%,
+      rgba(77, 63, 159, 0.96) 100%
+    );
+
+  border: 1px solid rgba(214, 206, 255, 0.30);
+
   box-shadow:
     0 8px 18px rgba(0, 0, 0, 0.28),
-    0 0 8px rgba(178, 102, 255, 0.12);
+    0 0 10px rgba(160, 130, 255, 0.14),
+    0 0 18px rgba(95, 145, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -6px 10px rgba(34, 28, 86, 0.20);
+
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -159,11 +225,19 @@ body {
 
 .game-grid a:hover {
   transform: translateY(-2px);
-  border-color: rgba(0, 224, 160, 0.34);
+
+  border-color: rgba(198, 232, 255, 0.42);
+
   box-shadow:
     0 10px 22px rgba(0, 0, 0, 0.32),
-    0 0 10px rgba(0, 224, 160, 0.08),
-    0 0 12px rgba(178, 102, 255, 0.16);
+    0 0 14px rgba(110, 150, 255, 0.12),
+    0 0 18px rgba(178, 102, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -6px 10px rgba(34, 28, 86, 0.24);
+}
+
+.game-grid a:active {
+  transform: translateY(0);
 }
 
 .room-copy {
@@ -182,16 +256,17 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* LARGE LAPTOP / SMALL DESKTOP */
+/* =========================
+   LARGE LAPTOP / SMALL DESKTOP
+   ========================= */
 @media (max-width: 1100px) {
   .hero {
     top: 3vh;
   }
 
   .fountain {
-    top: 70%;
-    width: min(155px, 18vw);
-    opacity: 0.31;
+    width: min(215px, 24vw);
+    top: 54%;
   }
 
   .games-layer {
@@ -199,7 +274,9 @@ body {
   }
 }
 
-/* TABLET */
+/* =========================
+   TABLET
+   ========================= */
 @media (max-width: 768px) {
   .hero {
     top: 2.5vh;
@@ -216,8 +293,8 @@ body {
 
   .enter-btn {
     margin-top: 20px;
-    padding: 12px 28px;
-    font-size: 0.95rem;
+    padding: 13px 30px;
+    font-size: 0.98rem;
   }
 
   .featured-label {
@@ -226,11 +303,15 @@ body {
   }
 
   .fountain {
-    top: 71%;
-    width: min(138px, 22vw);
-    opacity: 0.28;
+    width: min(180px, 28vw);
+    top: 56%;
+    opacity: 0.60;
     filter:
-      drop-shadow(0 0 5px rgba(0, 224, 160, 0.06))
+      brightness(0.56)
+      contrast(0.9)
+      saturate(0.35)
+      blur(0.45px)
+      drop-shadow(0 0 5px rgba(0, 224, 160, 0.07))
       drop-shadow(0 0 10px rgba(0, 224, 160, 0.03));
   }
 
@@ -256,7 +337,9 @@ body {
   }
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+   ========================= */
 @media (max-width: 480px) {
   .hero {
     top: 2vh;
@@ -274,8 +357,8 @@ body {
 
   .enter-btn {
     margin-top: 18px;
-    padding: 12px 24px;
-    font-size: 0.92rem;
+    padding: 13px 30px;
+    font-size: 0.96rem;
   }
 
   .featured-label {
@@ -284,10 +367,14 @@ body {
   }
 
   .fountain {
-    top: 72%;
-    width: min(108px, 28vw);
-    opacity: 0.24;
+    width: min(145px, 34vw);
+    top: 58%;
+    opacity: 0.56;
     filter:
+      brightness(0.58)
+      contrast(0.9)
+      saturate(0.35)
+      blur(0.4px)
       drop-shadow(0 0 4px rgba(0, 224, 160, 0.05))
       drop-shadow(0 0 8px rgba(0, 224, 160, 0.02));
   }
@@ -313,6 +400,12 @@ body {
     margin-top: 16px;
     font-size: 0.9rem;
   }
+
+  .credit {
+    margin-top: 10px;
+    font-size: 0.84rem;
+  }
+}
 
   .credit {
     margin-top: 10px;
