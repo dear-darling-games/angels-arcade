@@ -97,16 +97,22 @@ body {
 .fountain {
   position: fixed;
   left: 50%;
-  top: 69%;
+  top: 63%;
+
   transform: translate(-50%, -50%);
-  width: min(170px, 16vw);
+
+  width: min(210px, 20vw);
+
   z-index: 1;
   pointer-events: none;
-  opacity: 0.34;
+
+  opacity: 0.48;
+
   mix-blend-mode: screen;
+
   filter:
-    drop-shadow(0 0 6px rgba(0, 224, 160, 0.08))
-    drop-shadow(0 0 14px rgba(0, 224, 160, 0.04));
+    drop-shadow(0 0 10px rgba(0, 224, 160, 0.16))
+    drop-shadow(0 0 22px rgba(0, 224, 160, 0.08));
 }
 
 /* BOTTOM */
