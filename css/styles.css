@@ -371,3 +371,24 @@ body {
     top: 46%;
   }
 }
+
+/* ===== FINAL FOUNTAIN SIZE TWEAK ===== */
+
+/* desktop */
+.fountain {
+  width: min(200px, 18vw);
+}
+
+/* tablet */
+@media (max-width: 768px) {
+  .fountain {
+    width: min(165px, 24vw);
+  }
+}
+
+/* mobile */
+@media (max-width: 480px) {
+  .fountain {
+    width: min(125px, 30vw);
+  }
+}
