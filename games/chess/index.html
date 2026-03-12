@@ -137,7 +137,7 @@
       grid-template-columns: repeat(8, 1fr);
       grid-template-rows: repeat(8, 1fr);
       width: 100%;
-      max-width: min(78vh, 100%);
+      max-width: min(86vh, 900px);
       aspect-ratio: 1;
       margin: 0 auto;
       border-radius: 18px;
@@ -378,6 +378,11 @@
       }
     }
 
+      .sidebar {
+        order: 2;
+      }
+    }
+
     @media (max-width: 640px) {
       body {
         padding: 10px 8px 18px;
@@ -410,10 +415,6 @@
         letter-spacing: 0.06em;
       }
 
-      .subtitle {
-        font-size: 0.82rem;
-      }
-
       .board-shell {
         grid-template-columns: 14px 1fr;
         grid-template-rows: 1fr 14px;
@@ -432,8 +433,30 @@
       }
 
       .square {
-        font-size: clamp(1.35rem, 9vw, 2.2rem);
+        font-size: clamp(1.2rem, 8.5vw, 2rem);
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
+
+      .piece {
+        transform: translateY(1px);
+      }
+
+      .controls,
+      .meta-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .panel {
+        padding: 12px;
+      }
+
+      .moves {
+        max-height: 220px;
+      }
+    }
 
       .controls,
       .meta-grid {
@@ -1234,3 +1257,4 @@
   </script>
 </body>
 </html>
+
