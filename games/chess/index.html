@@ -371,6 +371,20 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
     }
 
+    .home-btn {
+      grid-column: 1 / -1;
+      background: linear-gradient(145deg, #115546 0%, #0b4036 42%, #082d26 100%);
+      border-color: rgba(212, 195, 255, 0.18);
+      color: #f2e4ff;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        inset 0 -8px 14px rgba(0,0,0,0.18);
+    }
+
+    .home-btn:hover {
+      background: linear-gradient(145deg, #14614f 0%, #0d493d 42%, #09352c 100%);
+    }
+
     .meta-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -651,6 +665,7 @@
           <button id="undoBtn">Undo Move</button>
           <button id="flipBtn">Flip Board</button>
           <button id="copyFenBtn">Copy FEN</button>
+          <button id="homeBtn" class="home-btn">Go Back Home</button>
         </div>
       </section>
 
@@ -1410,6 +1425,10 @@
       }
     });
 
+    document.getElementById("homeBtn").addEventListener("click", () => {
+      window.location.href = "../../index.html";
+    });
+
     window.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         state.selected = null;
@@ -1422,4 +1441,5 @@
   </script>
 </body>
 </html>
+
 
