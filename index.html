@@ -7,47 +7,35 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <main class="arcade-card">
-      <span class="corner corner-top-left"></span>
-      <span class="corner corner-bottom-right"></span>
+  <main class="scene">
+    <header class="hero">
+      <h1>ANGEL'S ARCADE</h1>
+      <p class="tagline">Wanna play, Sir?</p>
+      <a class="enter-btn" href="#games">ENTER GAME</a>
+      <p class="featured-label">✦ Featured Games ✦</p>
+    </header>
 
-      <header class="hero">
-        <h1>ANGEL'S ARCADE</h1>
-        <p class="tagline">A tiny arcade I built for Daniel.</p>
-      </header>
+    <img
+      class="fountain"
+      src="assets/assetsfountain.png.png"
+      alt="Emerald fountain"
+    />
 
-      <a class="enter-btn" href="#library">ENTER GAME</a>
+    <section class="games-layer" id="games" aria-label="Game Library">
+      <nav class="game-grid">
+        <a href="#">Chess</a>
+        <a href="#">Checkers</a>
+        <a href="#">Uno</a>
+        <a href="#">Scrabble</a>
+        <a href="#">Mancala</a>
+        <a href="#">Cyvasse</a>
+        <a href="#">Blackjack</a>
+        <a href="#">Dress-Up</a>
+      </nav>
 
-      <section class="arcade-stage" id="library">
-        <p class="featured-label">✦ Featured Games ✦</p>
-
-        <img
-          class="fountain"
-          src="assets/assetsfountain.png.png"
-          alt="Emerald fountain"
-        />
-
-        <nav class="game-grid" aria-label="Game Library">
-          <a href="#">Chess</a>
-          <a href="#">Checkers</a>
-          <a href="#">Uno</a>
-          <a href="#">Scrabble</a>
-          <a href="#">Mancala</a>
-          <a href="#">Cyvasse</a>
-          <a href="#">Blackjack</a>
-          <a href="#">Dress-Up</a>
-        </nav>
-      </section>
-
-      <p class="room-copy">
-        Create a private room and send the link to Daniel.
-      </p>
-
-      <footer class="site-footer">
-        <p>Lovingly crafted by Angel ✦</p>
-      </footer>
-    </main>
-  </div>
+      <p class="room-copy">Create a private room and send a link.</p>
+      <p class="credit">Lovingly crafted by Angel ✦</p>
+    </section>
+  </main>
 </body>
 </html>
