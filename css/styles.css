@@ -350,3 +350,24 @@ body {
     font-size: 0.84rem;
   }
 }
+
+/* ===== FINAL FOUNTAIN POSITION FIX ===== */
+
+/* desktop */
+.fountain {
+  top: 53%;
+}
+
+/* tablet */
+@media (max-width: 768px) {
+  .fountain {
+    top: 50%;
+  }
+}
+
+/* mobile */
+@media (max-width: 480px) {
+  .fountain {
+    top: 46%;
+  }
+}
