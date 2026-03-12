@@ -39,9 +39,7 @@ body {
   text-align: center;
 }
 
-/* =========================
-   TOP TEXT / TITLE AREA
-   ========================= */
+/* TOP TEXT / TITLE AREA */
 .hero {
   position: absolute;
   top: 3vh;
@@ -76,16 +74,7 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* =========================
-   MAIN EMERALD BUTTON
-   This is your primary action button.
-   If you want it more emerald:
-   - increase emerald tones
-   - brighten border/glow a little
-   If you want it darker:
-   - darken background gradient
-   - reduce box-shadow intensity
-   ========================= */
+/* MAIN EMERALD BUTTON */
 .enter-btn {
   display: inline-block;
   margin-top: 22px;
@@ -96,7 +85,6 @@ body {
   font-size: 1.05rem;
   font-weight: bold;
   letter-spacing: 0.08em;
-
   background:
     linear-gradient(
       180deg,
@@ -104,15 +92,12 @@ body {
       rgba(13, 114, 92, 0.96) 42%,
       rgba(8, 79, 65, 0.98) 100%
     );
-
   border: 1px solid rgba(150, 255, 220, 0.42);
-
   box-shadow:
     0 0 12px rgba(0, 224, 160, 0.18),
     0 0 24px rgba(0, 170, 135, 0.10),
     inset 0 1px 0 rgba(230, 255, 248, 0.14),
     inset 0 -8px 14px rgba(0, 42, 34, 0.20);
-
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -121,9 +106,7 @@ body {
 
 .enter-btn:hover {
   transform: translateY(-2px);
-
   border-color: rgba(180, 255, 232, 0.56);
-
   box-shadow:
     0 0 16px rgba(0, 224, 160, 0.24),
     0 0 28px rgba(0, 180, 145, 0.14),
@@ -131,26 +114,17 @@ body {
     inset 0 -8px 14px rgba(0, 42, 34, 0.24);
 }
 
-/* =========================
-   FOUNTAIN
-   Kept visible, dark, and atmospheric.
-   If you want:
-   - more visible: raise opacity or brightness
-   - darker: lower brightness
-   - softer edges: slightly increase blur
-   ========================= */
+/* FOUNTAIN */
 .fountain {
   position: fixed;
   left: 50%;
   top: 53%;
   transform: translate(-50%, -50%);
   width: min(230px, 22vw);
-
   z-index: 1;
   pointer-events: none;
   opacity: 0.65;
   mix-blend-mode: normal;
-
   filter:
     brightness(0.55)
     contrast(0.9)
@@ -160,9 +134,7 @@ body {
     drop-shadow(0 0 14px rgba(0, 224, 160, 0.04));
 }
 
-/* =========================
-   LOWER CONTENT AREA
-   ========================= */
+/* LOWER CONTENT AREA */
 .games-layer {
   position: absolute;
   left: 50%;
@@ -181,15 +153,7 @@ body {
   margin: 0 auto;
 }
 
-/* =========================
-   FEATURED GAME BUTTONS
-   These are your opalescent purple-blue chips.
-   If you want them:
-   - more blue: strengthen the blue stop
-   - more purple: strengthen the top purple stop
-   - shinier: brighten inset top highlight
-   - darker: deepen bottom color
-   ========================= */
+/* FEATURED GAME BUTTONS */
 .game-grid a {
   min-width: 110px;
   padding: 10px 16px;
@@ -198,7 +162,6 @@ body {
   text-align: center;
   color: #f8f2ff;
   font-size: 0.95rem;
-
   background:
     linear-gradient(
       180deg,
@@ -207,16 +170,13 @@ body {
       rgba(102, 111, 216, 0.92) 68%,
       rgba(77, 63, 159, 0.96) 100%
     );
-
   border: 1px solid rgba(214, 206, 255, 0.30);
-
   box-shadow:
     0 8px 18px rgba(0, 0, 0, 0.28),
     0 0 10px rgba(160, 130, 255, 0.14),
     0 0 18px rgba(95, 145, 255, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -6px 10px rgba(34, 28, 86, 0.20);
-
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
@@ -225,9 +185,7 @@ body {
 
 .game-grid a:hover {
   transform: translateY(-2px);
-
   border-color: rgba(198, 232, 255, 0.42);
-
   box-shadow:
     0 10px 22px rgba(0, 0, 0, 0.32),
     0 0 14px rgba(110, 150, 255, 0.12),
@@ -256,9 +214,7 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* =========================
-   LARGE LAPTOP / SMALL DESKTOP
-   ========================= */
+/* LARGE LAPTOP / SMALL DESKTOP */
 @media (max-width: 1100px) {
   .hero {
     top: 3vh;
@@ -274,9 +230,7 @@ body {
   }
 }
 
-/* =========================
-   TABLET
-   ========================= */
+/* TABLET */
 @media (max-width: 768px) {
   .hero {
     top: 2.5vh;
@@ -337,9 +291,7 @@ body {
   }
 }
 
-/* =========================
-   MOBILE
-   ========================= */
+/* MOBILE */
 @media (max-width: 480px) {
   .hero {
     top: 2vh;
@@ -400,12 +352,6 @@ body {
     margin-top: 16px;
     font-size: 0.9rem;
   }
-
-  .credit {
-    margin-top: 10px;
-    font-size: 0.84rem;
-  }
-}
 
   .credit {
     margin-top: 10px;
