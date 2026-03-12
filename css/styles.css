@@ -94,23 +94,30 @@ body {
 }
 
 /* FOUNTAIN */
+/* FOUNTAIN */
 .fountain {
   position: fixed;
   left: 50%;
   top: 53%;
   transform: translate(-50%, -50%);
   width: min(210px, 20vw);
+
   z-index: 1;
   pointer-events: none;
 
   opacity: 0.56;
 
-  mix-blend-mode: screen;
+  /* blend the glow into the background */
+  mix-blend-mode: lighten;
 
+  /* darken + soften the fountain so it matches the scene */
   filter:
     brightness(0.6)
-    drop-shadow(0 0 10px rgba(0, 224, 160, 0.16))
-    drop-shadow(0 0 22px rgba(0, 224, 160, 0.08));
+    contrast(0.8)
+    saturate(0.85)
+    blur(0.4px)
+    drop-shadow(0 0 8px rgba(0, 224, 160, 0.12))
+    drop-shadow(0 0 18px rgba(0, 224, 160, 0.06));
 }
 
 /* BOTTOM */
