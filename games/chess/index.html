@@ -7,23 +7,22 @@
   <style>
     :root {
       --bg: #050505;
-      --bg-soft: #0d0d0d;
-      --panel: rgba(255, 255, 255, 0.03);
-      --panel-border: rgba(214, 195, 255, 0.18);
-      --text: #f1eaff;
-      --muted: #c4b8e5;
+      --panel: rgba(255, 255, 255, 0.035);
+      --panel-border: rgba(212, 195, 255, 0.18);
+      --text: #f3ecff;
+      --muted: #cabee7;
       --light: #d9cdee;
       --dark: #0f5c4f;
       --dark-2: #0b473e;
       --emerald-frame: #063b33;
-      --accent: #ccbaff;
-      --selected: #7ae6b7;
-      --move: rgba(122, 230, 183, 0.34);
-      --capture: rgba(255, 125, 125, 0.42);
-      --check: rgba(212, 175, 255, 0.25);
-      --button: #141414;
+      --selected: #72e2b1;
+      --move: rgba(114, 226, 177, 0.34);
+      --capture: rgba(255, 126, 126, 0.42);
+      --check: rgba(212, 195, 255, 0.22);
+      --button: #131313;
       --button-hover: #1d1d1d;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.38);
+      --accent: #dac7ff;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
     }
 
     * { box-sizing: border-box; }
@@ -32,8 +31,8 @@
       margin: 0;
       min-height: 100%;
       background:
-        radial-gradient(circle at top, rgba(75, 140, 110, 0.14), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(210, 190, 255, 0.08), transparent 22%),
+        radial-gradient(circle at top, rgba(50, 90, 68, 0.18), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(211, 191, 245, 0.08), transparent 20%),
         #050505;
     }
 
@@ -44,11 +43,11 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 18px 12px 24px;
+      padding: 20px 14px 28px;
     }
 
     .app {
-      width: min(1180px, 100%);
+      width: min(1160px, 100%);
       display: grid;
       grid-template-columns: minmax(0, 1fr) 320px;
       gap: 18px;
@@ -57,77 +56,82 @@
 
     .board-wrap,
     .sidebar {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.018));
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
       border: 1px solid var(--panel-border);
       border-radius: 22px;
       box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
     .board-wrap {
       padding: 18px;
-      overflow: visible;
     }
 
     .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr auto;
       gap: 12px;
+      align-items: center;
       margin-bottom: 14px;
-      flex-wrap: wrap;
     }
 
     h1 {
+      font-size: clamp(1.35rem, 2.2vw, 2rem);
       margin: 0;
-      font-size: clamp(1.3rem, 2.1vw, 2rem);
-      color: #f3ebff;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #f4edff;
       text-shadow: 0 1px 0 rgba(0,0,0,0.45);
     }
 
     .status-pill {
-      padding: 9px 14px;
+      padding: 9px 13px;
       border-radius: 999px;
-      background: rgba(212, 175, 255, 0.08);
-      border: 1px solid rgba(212, 175, 255, 0.18);
-      font-size: 0.94rem;
+      background: rgba(212, 195, 255, 0.08);
+      border: 1px solid var(--panel-border);
       color: var(--text);
+      font-size: 0.92rem;
       white-space: nowrap;
+      justify-self: end;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
     }
 
     .board-shell {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      grid-template-rows: 1fr 18px;
+      display: inline-grid;
+      grid-template-columns: 24px auto;
+      grid-template-rows: auto 20px;
       gap: 8px;
       align-items: stretch;
-    }
-
-    .ranks {
-      grid-row: 1;
-      display: grid;
-      grid-template-rows: repeat(8, 1fr);
-      color: var(--muted);
-      font-size: 0.78rem;
-      user-select: none;
+      justify-content: center;
+      margin: 0 auto;
     }
 
     .files {
       grid-column: 2;
       display: grid;
       grid-template-columns: repeat(8, 1fr);
+      font-size: 0.82rem;
       color: var(--muted);
-      font-size: 0.78rem;
-      user-select: none;
-      padding: 0 4px;
+      padding: 2px 0 0;
+      letter-spacing: 0.06em;
     }
 
-    .ranks span,
-    .files span {
+    .files span,
+    .ranks span {
       display: flex;
       align-items: center;
       justify-content: center;
+      user-select: none;
+    }
+
+    .ranks {
+      grid-row: 1;
+      display: grid;
+      grid-template-rows: repeat(8, 1fr);
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding-right: 2px;
     }
 
     .board {
@@ -135,26 +139,27 @@
       display: grid;
       grid-template-columns: repeat(8, 1fr);
       grid-template-rows: repeat(8, 1fr);
-      width: 100%;
-      max-width: min(88vh, 930px);
+      width: min(88vh, 930px);
+      max-width: calc(100vw - 120px);
       aspect-ratio: 1;
       margin: 0 auto;
-      border-radius: 18px;
+      border-radius: 12px;
       overflow: visible;
+      border: 1px solid rgba(212, 195, 255, 0.12);
       box-shadow:
         0 0 0 6px var(--emerald-frame),
         0 0 0 11px var(--dark),
-        inset 0 0 12px rgba(0,0,0,0.5),
+        inset 0 0 12px rgba(0,0,0,0.42),
         0 16px 34px rgba(0,0,0,0.46);
+      touch-action: manipulation;
     }
 
     .board::before {
       content: "";
       position: absolute;
       inset: -12px;
-      border-radius: 24px;
-      background:
-        linear-gradient(145deg, #167765, #0f5c4f 55%, #0b473e);
+      border-radius: 18px;
+      background: linear-gradient(145deg, #167765, #0f5c4f 55%, #0b473e);
       z-index: -2;
       box-shadow:
         inset 0 2px 8px rgba(255,255,255,0.08),
@@ -165,10 +170,9 @@
       content: "";
       position: absolute;
       inset: -7px;
-      border-radius: 20px;
+      border-radius: 14px;
       z-index: -1;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.09), transparent 18%, transparent 82%, rgba(0,0,0,0.22));
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), transparent 18%, transparent 82%, rgba(0,0,0,0.22));
       pointer-events: none;
     }
 
@@ -177,35 +181,44 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 0;
-      padding: 0;
+      font-size: clamp(1.55rem, 7vw, 3.15rem);
       cursor: pointer;
       user-select: none;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      transition: filter 0.15s ease, transform 0.12s ease;
       overflow: hidden;
     }
 
     .square.light {
       background:
-        radial-gradient(circle at 30% 24%, rgba(255,255,255,0.24), transparent 38%),
-        linear-gradient(180deg, #e4d8f5, #d9cdee 62%, #cfc2e9);
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,0.55), transparent 24%),
+        radial-gradient(circle at 74% 78%, rgba(255,255,255,0.16), transparent 22%),
+        linear-gradient(145deg, #f4eeff 0%, #e6dcf7 34%, #d9cdee 66%, #cdbfe7 100%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .square.light::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.14), transparent 36%, rgba(170,140,220,0.08) 72%, transparent 100%);
+      pointer-events: none;
     }
 
     .square.dark {
       background:
         radial-gradient(circle at 30% 24%, rgba(255,255,255,0.14), transparent 34%),
         linear-gradient(180deg, #167765, #0f5c4f 60%, #0b473e);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     .square.dark::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        115deg,
-        transparent 32%,
-        rgba(255,255,255,0.06) 48%,
-        transparent 62%
-      );
+      background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.06) 48%, transparent 62%);
       transform: translateX(-120%);
       animation: shimmer 7s linear infinite;
       pointer-events: none;
@@ -216,43 +229,43 @@
       to { transform: translateX(120%); }
     }
 
+    .square:hover { filter: brightness(1.03); }
+
     .square.selected {
       box-shadow:
         inset 0 0 0 4px var(--selected),
-        inset 0 0 18px rgba(122,230,183,0.42);
+        inset 0 0 18px rgba(114,226,177,0.38);
       z-index: 2;
     }
 
-    .square.last-move {
-      box-shadow: inset 0 0 0 999px rgba(210,190,255,0.18);
-    }
+    .square.last-move { box-shadow: inset 0 0 0 999px rgba(212,195,255,0.14); }
+    .square.in-check { box-shadow: inset 0 0 0 999px var(--check); }
 
-    .square.in-check {
-      box-shadow: inset 0 0 0 999px var(--check);
+    .square::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
     }
 
     .square.move-dot::after {
-      content: "";
-      position: absolute;
       width: 24%;
       height: 24%;
+      margin: auto;
+      inset: 0;
       border-radius: 50%;
       background: var(--move);
-      pointer-events: none;
     }
 
     .square.capture-dot::after {
-      content: "";
-      position: absolute;
-      inset: 8%;
+      inset: 9%;
       border-radius: 50%;
       border: 4px solid var(--capture);
-      pointer-events: none;
     }
 
     .piece {
-      width: 76%;
-      height: 76%;
+      width: 78%;
+      height: 78%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -262,7 +275,7 @@
     }
 
     .square:hover .piece {
-      transform: translateY(-1px) scale(1.06);
+      transform: translateY(-1px) scale(1.05);
     }
 
     .piece svg {
@@ -273,17 +286,22 @@
     }
 
     .piece.white-piece {
-      color: #f3ebff;
+      color: #f7f1ff;
       filter:
-        drop-shadow(0 0 10px rgba(243, 235, 255, 0.15))
-        drop-shadow(0 4px 8px rgba(0,0,0,0.26));
+        drop-shadow(0 0 12px rgba(247, 241, 255, 0.22))
+        drop-shadow(0 1px 0 rgba(255,255,255,0.25))
+        drop-shadow(0 5px 8px rgba(0,0,0,0.2));
+    }
+
+    .piece.white-piece svg {
+      opacity: 0.98;
     }
 
     .piece.black-piece {
       color: #08110f;
       filter:
         drop-shadow(0 1px 0 rgba(255,255,255,0.05))
-        drop-shadow(0 4px 8px rgba(0,0,0,0.26));
+        drop-shadow(0 5px 8px rgba(0,0,0,0.22));
     }
 
     .sidebar {
@@ -294,19 +312,26 @@
     }
 
     .panel {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: 16px;
       padding: 14px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212, 195, 255, 0.14);
     }
 
     .panel h2 {
       margin: 0 0 10px;
-      font-size: 0.88rem;
-      letter-spacing: 0.12em;
+      font-size: 0.98rem;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
+      font-weight: 600;
       color: var(--accent);
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.92rem;
     }
 
     .controls {
@@ -317,28 +342,27 @@
 
     button {
       appearance: none;
-      background: linear-gradient(180deg, #1b1b1b, #101010);
-      border: 1px solid rgba(212,175,255,0.22);
-      color: #eadfff;
+      border: 1px solid rgba(212, 195, 255, 0.2);
+      background: var(--button);
+      color: var(--text);
       border-radius: 14px;
       padding: 12px 14px;
       font: inherit;
       cursor: pointer;
-      transition: transform 0.12s ease, background 0.2s ease, box-shadow 0.2s ease;
+      transition: background 0.2s ease, transform 0.06s ease, box-shadow 0.2s ease;
     }
 
     button:hover {
-      background: linear-gradient(180deg, #242424, #151515);
+      background: var(--button-hover);
       box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
     }
 
-    button:active {
-      transform: translateY(1px);
-    }
+    button:active { transform: translateY(1px); }
 
     .primary {
-      border-color: rgba(122, 230, 183, 0.3);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+      background: linear-gradient(180deg, #1b1b1b, #101010);
+      border-color: rgba(212, 195, 255, 0.28);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
     }
 
     .meta-grid {
@@ -351,22 +375,21 @@
       padding: 11px;
       border-radius: 14px;
       background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(212,175,255,0.12);
+      border: 1px solid rgba(212, 195, 255, 0.12);
     }
 
     .meta-label {
       display: block;
       font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .meta-value {
       font-size: 0.98rem;
       font-weight: 600;
-      color: var(--text);
     }
 
     .moves {
@@ -374,7 +397,7 @@
       overflow: auto;
       border-radius: 14px;
       background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(212,175,255,0.12);
+      border: 1px solid rgba(212, 195, 255, 0.12);
     }
 
     .moves table {
@@ -387,23 +410,16 @@
     .moves td {
       padding: 10px 12px;
       text-align: left;
-      border-bottom: 1px solid rgba(212,175,255,0.08);
+      border-bottom: 1px solid rgba(212, 195, 255, 0.08);
       vertical-align: top;
     }
 
     .moves th {
       position: sticky;
       top: 0;
-      background: #101010;
+      background: #0d0d0d;
       z-index: 1;
       color: var(--accent);
-      letter-spacing: 0.06em;
-    }
-
-    .footer-note {
-      font-size: 0.85rem;
-      line-height: 1.45;
-      color: var(--muted);
     }
 
     .promo-overlay {
@@ -414,32 +430,18 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-      z-index: 40;
+      z-index: 20;
     }
 
-    .promo-overlay.active {
-      display: flex;
-    }
+    .promo-overlay.active { display: flex; }
 
     .promo-modal {
       width: min(420px, 100%);
       background: #0d0d0d;
-      border: 1px solid rgba(212,175,255,0.16);
+      border: 1px solid rgba(212, 195, 255, 0.2);
       border-radius: 22px;
       padding: 20px;
-      box-shadow: 0 24px 70px rgba(0,0,0,0.48);
-    }
-
-    .promo-title {
-      margin: 0;
-      font-size: 1.1rem;
-      color: var(--text);
-    }
-
-    .promo-copy {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 0.94rem;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.45);
     }
 
     .promo-options {
@@ -450,8 +452,8 @@
     }
 
     .promo-btn {
-      padding: 12px 8px;
-      min-height: 74px;
+      padding: 14px 8px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -462,12 +464,19 @@
       height: 52px;
     }
 
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
     @media (max-width: 920px) {
       .app {
         grid-template-columns: 1fr;
       }
 
       .board {
+        width: min(92vw, 680px);
         max-width: min(92vw, 680px);
       }
 
@@ -491,21 +500,22 @@
       }
 
       .topbar {
-        flex-direction: column;
-        align-items: stretch;
+        grid-template-columns: 1fr;
       }
 
       .status-pill {
+        justify-self: stretch;
         text-align: center;
       }
 
       h1 {
-        font-size: 1.1rem;
+        font-size: 1.12rem;
+        letter-spacing: 0.06em;
       }
 
       .board-shell {
-        grid-template-columns: 14px 1fr;
-        grid-template-rows: 1fr 14px;
+        grid-template-columns: 14px auto;
+        grid-template-rows: auto 14px;
         gap: 4px;
       }
 
@@ -515,19 +525,37 @@
       }
 
       .board {
-        width: min(calc(100vw - 40px), 100%);
-        max-width: min(calc(100vw - 40px), 520px);
+        width: min(calc(100vw - 44px), 520px);
+        max-width: min(calc(100vw - 44px), 520px);
+        border-radius: 8px;
+      }
+
+      .board::before {
         border-radius: 14px;
+      }
+
+      .board::after {
+        border-radius: 10px;
+      }
+
+      .square {
+        font-size: clamp(1.2rem, 8.5vw, 2rem);
+        line-height: 1;
       }
 
       .piece {
         width: 74%;
         height: 74%;
+        transform: translateY(0.5px);
       }
 
       .controls,
       .meta-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .panel {
+        padding: 12px;
       }
 
       .moves {
@@ -551,7 +579,9 @@
   <div class="app">
     <section class="board-wrap">
       <div class="topbar">
-        <h1>Angel's Arcade — Chess</h1>
+        <div>
+          <h1>Angel's Arcade — Chess</h1>
+        </div>
         <div id="statusPill" class="status-pill">White to move</div>
       </div>
 
@@ -609,22 +639,21 @@
       </section>
 
       <section class="panel footer-note">
-        Legal moves, check, checkmate, stalemate, castling, en passant, promotion, undo, flip board, and FEN copy are included.
+        Rules included: legal movement, turn order, check, checkmate, stalemate, castling, en passant, and promotion.
       </section>
     </aside>
   </div>
 
   <div id="promoOverlay" class="promo-overlay" aria-hidden="true">
     <div class="promo-modal">
-      <h2 class="promo-title">Choose promotion</h2>
-      <p class="promo-copy">Select the piece for your promoted pawn.</p>
+      <h2 style="margin:0;">Choose promotion</h2>
+      <p style="margin:10px 0 0; color: var(--muted);">Select the piece for your promoted pawn.</p>
       <div id="promoOptions" class="promo-options"></div>
     </div>
   </div>
 
   <script>
     const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
-
     const PIECE_SVG = {
       p: `<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="18" r="8.5" fill="currentColor"/><path d="M24 31c0-5 3.5-8 8-8s8 3 8 8c0 3-1.5 5.5-3.2 7.6 5 1.9 8.2 6 8.2 11.4H19c0-5.4 3.2-9.5 8.2-11.4C25.5 36.5 24 34 24 31Z" fill="currentColor"/><rect x="18" y="50" width="28" height="5" rx="2.5" fill="currentColor"/><rect x="14" y="56" width="36" height="4" rx="2" fill="currentColor"/></svg>`,
       n: `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M22 52c2-9 7-15 15-18-5-2-8-6-8-12 0-6 4-10 10-10 2.5 0 5 .8 7 2.5-3.5 1.2-5.5 3.7-5.5 6.8 0 5.2 4.5 7.7 9.5 8.2-2 4.5-7 7.5-13 8.4 4.4 2.4 7.6 7 8.8 14H22Z" fill="currentColor"/><circle cx="42" cy="21" r="1.9" fill="rgba(255,255,255,.28)"/><rect x="18" y="52" width="30" height="4.5" rx="2.25" fill="currentColor"/><rect x="14" y="57" width="38" height="3.5" rx="1.75" fill="currentColor"/></svg>`,
@@ -676,12 +705,8 @@
       ];
     }
 
-    function deepClone(value) {
-      return JSON.parse(JSON.stringify(value));
-    }
-
     function cloneStateSnapshot() {
-      return deepClone({
+      return JSON.parse(JSON.stringify({
         board: state.board,
         turn: state.turn,
         castling: state.castling,
@@ -691,7 +716,7 @@
         lastMove: state.lastMove,
         result: state.result,
         moveHistory: state.moveHistory
-      });
+      }));
     }
 
     function restoreSnapshot(snapshot) {
@@ -741,16 +766,16 @@
       return piece ? piece[1] : null;
     }
 
-    function opposite(color) {
-      return color === "w" ? "b" : "w";
-    }
-
     function sameSquare(a, b) {
       return a && b && a.r === b.r && a.c === b.c;
     }
 
     function coordsToAlg(r, c) {
       return FILES[c] + String(8 - r);
+    }
+
+    function opposite(color) {
+      return color === "w" ? "b" : "w";
     }
 
     function isSquareAttacked(board, targetR, targetC, byColor) {
@@ -784,10 +809,7 @@
               let cc = c + stepC;
               let blocked = false;
               while (rr !== targetR && cc !== targetC) {
-                if (board[rr][cc]) {
-                  blocked = true;
-                  break;
-                }
+                if (board[rr][cc]) { blocked = true; break; }
                 rr += stepR;
                 cc += stepC;
               }
@@ -803,10 +825,7 @@
               let cc = c + stepC;
               let blocked = false;
               while (rr !== targetR || cc !== targetC) {
-                if (board[rr][cc]) {
-                  blocked = true;
-                  break;
-                }
+                if (board[rr][cc]) { blocked = true; break; }
                 rr += stepR;
                 cc += stepC;
               }
@@ -848,13 +867,7 @@
         if (!inBounds(toR, toC)) return;
         const target = board[toR][toC];
         if (target && pieceColor(target) === color) return;
-        moves.push({
-          from: { r, c },
-          to: { r: toR, c: toC },
-          piece,
-          captured: target || null,
-          ...extra
-        });
+        moves.push({ from: { r, c }, to: { r: toR, c: toC }, piece, captured: target || null, ...extra });
       };
 
       if (type === "p") {
@@ -891,9 +904,7 @@
       }
 
       if (type === "n") {
-        [[1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]].forEach(([dr, dc]) => {
-          pushMove(r + dr, c + dc);
-        });
+        [[1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]].forEach(([dr, dc]) => pushMove(r + dr, c + dc));
       }
 
       if (type === "b" || type === "r" || type === "q") {
@@ -1008,29 +1019,26 @@
       const type = pieceType(move.piece);
       const isPawn = type === "p";
       const pieceLetter = isPawn ? "" : type.toUpperCase();
-      const sameTypeCandidates = [];
+      const allSameTypeMoves = [];
 
       for (let r = 0; r < 8; r++) {
         for (let c = 0; c < 8; c++) {
           const piece = boardBefore[r][c];
-          if (!piece) continue;
-          if (r === move.from.r && c === move.from.c) continue;
+          if (!piece || (r === move.from.r && c === move.from.c)) continue;
           if (pieceColor(piece) !== pieceColor(move.piece) || pieceType(piece) !== type) continue;
-
           const legal = generatePseudoMoves(boardBefore, r, c).filter(candidate => {
             if (candidate.to.r !== move.to.r || candidate.to.c !== move.to.c) return false;
             const testBoard = applyMoveToBoard(boardBefore, candidate, candidate.promotion ? "q" : null);
             return !isInCheck(testBoard, pieceColor(move.piece));
           });
-
-          if (legal.length) sameTypeCandidates.push({ r, c });
+          if (legal.length) allSameTypeMoves.push({ r, c });
         }
       }
 
       let disambiguation = "";
-      if (!isPawn && sameTypeCandidates.length) {
-        const sameFile = sameTypeCandidates.some(pos => pos.c === move.from.c);
-        const sameRank = sameTypeCandidates.some(pos => pos.r === move.from.r);
+      if (!isPawn && allSameTypeMoves.length) {
+        const sameFile = allSameTypeMoves.some(pos => pos.c === move.from.c);
+        const sameRank = allSameTypeMoves.some(pos => pos.r === move.from.r);
         if (!sameFile) disambiguation = FILES[move.from.c];
         else if (!sameRank) disambiguation = String(8 - move.from.r);
         else disambiguation = FILES[move.from.c] + String(8 - move.from.r);
@@ -1041,7 +1049,6 @@
       const target = coordsToAlg(move.to.r, move.to.c);
       const promotion = move.promotion ? "=" + (promotionChoice || "q").toUpperCase() : "";
       const suffix = mateInfo === "mate" ? "#" : mateInfo === "check" ? "+" : "";
-
       return `${pieceLetter}${disambiguation || pawnCapturePrefix}${capture ? "x" : ""}${target}${promotion}${suffix}`;
     }
 
@@ -1073,7 +1080,6 @@
     function finalizeMove(move, promotionChoice = null) {
       const snapshot = cloneStateSnapshot();
       const boardBefore = state.board.map(row => row.slice());
-
       state.board = applyMoveToBoard(state.board, move, promotionChoice);
       updateCastlingRights(move);
 
@@ -1094,7 +1100,6 @@
       const enemyMoves = getAllLegalMoves(state.turn);
       const check = isInCheck(state.board, state.turn);
       let mateInfo = null;
-
       if (enemyMoves.length === 0) {
         state.result = check
           ? `${movingColor === "w" ? "White" : "Black"} wins by checkmate`
@@ -1108,10 +1113,7 @@
       }
 
       const san = buildSan(move, boardBefore, promotionChoice, mateInfo);
-      state.moveHistory.push({
-        san,
-        color: movingColor
-      });
+      state.moveHistory.push({ san, color: movingColor });
 
       state.selected = null;
       state.legalTargets = [];
@@ -1156,7 +1158,6 @@
         state.selected = null;
         state.legalTargets = [];
       }
-
       render();
     }
 
@@ -1164,7 +1165,6 @@
       const rows = state.board.map(row => {
         let fen = "";
         let empty = 0;
-
         for (const piece of row) {
           if (!piece) {
             empty += 1;
@@ -1177,7 +1177,6 @@
             fen += pieceColor(piece) === "w" ? letter.toUpperCase() : letter;
           }
         }
-
         if (empty) fen += empty;
         return fen;
       });
@@ -1204,15 +1203,13 @@
       let status = `${currentSide} to move`;
       if (state.result) status = state.result;
       else if (inCheck) status += " — check";
-
       statusPillEl.textContent = status;
     }
 
     function renderCoordinates() {
       const files = state.orientation === "w" ? FILES : [...FILES].reverse();
       const ranks = state.orientation === "w" ? [8,7,6,5,4,3,2,1] : [1,2,3,4,5,6,7,8];
-
-      filesEl.innerHTML = files.map(file => `<span>${file}</span>`).join("");
+      filesEl.innerHTML = files.map(file => `<span>${file.toUpperCase()}</span>`).join("");
       ranksEl.innerHTML = ranks.map(rank => `<span>${rank}</span>`).join("");
     }
 
@@ -1234,21 +1231,11 @@
 
     function renderBoard() {
       renderCoordinates();
-
-      const rows = state.orientation === "w"
-        ? [...Array(8).keys()]
-        : [...Array(8).keys()].reverse();
-
-      const cols = state.orientation === "w"
-        ? [...Array(8).keys()]
-        : [...Array(8).keys()].reverse();
-
-      const kingInCheck = isInCheck(state.board, state.turn)
-        ? findKing(state.board, state.turn)
-        : null;
+      const rows = state.orientation === "w" ? [...Array(8).keys()] : [...Array(8).keys()].reverse();
+      const cols = state.orientation === "w" ? [...Array(8).keys()] : [...Array(8).keys()].reverse();
+      const kingInCheck = isInCheck(state.board, state.turn) ? findKing(state.board, state.turn) : null;
 
       boardEl.innerHTML = "";
-
       for (const r of rows) {
         for (const c of cols) {
           const square = document.createElement("button");
@@ -1303,6 +1290,7 @@
         btn.innerHTML = `<span class="piece ${color === "w" ? "white-piece" : "black-piece"}">${PIECE_SVG[type]}</span>`;
         btn.addEventListener("click", () => {
           const move = state.pendingPromotion;
+          hidePromotion();
           if (move) finalizeMove(move, type);
         });
         promoOptionsEl.appendChild(btn);
@@ -1317,18 +1305,15 @@
     }
 
     document.getElementById("newGameBtn").addEventListener("click", resetGame);
-
     document.getElementById("flipBtn").addEventListener("click", () => {
       state.orientation = state.orientation === "w" ? "b" : "w";
       render();
     });
-
     document.getElementById("undoBtn").addEventListener("click", () => {
       if (!state.undoStack.length || state.pendingPromotion) return;
       const snapshot = state.undoStack.pop();
       restoreSnapshot(snapshot);
     });
-
     document.getElementById("copyFenBtn").addEventListener("click", async () => {
       const fen = generateFEN();
       try {
