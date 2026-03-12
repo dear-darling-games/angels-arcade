@@ -29,7 +29,7 @@ body {
   color: var(--text-main);
   background:
     linear-gradient(rgba(4, 4, 10, 0.18), rgba(4, 4, 12, 0.50)),
-    url("../assets/cathedral-bg.png") center center / cover no-repeat fixed;
+    url("../assets/assetscathedral-bg.png.png") center center / cover no-repeat fixed;
 }
 
 .scene {
@@ -39,7 +39,6 @@ body {
   text-align: center;
 }
 
-/* TOP TEXT / TITLE AREA */
 .hero {
   position: absolute;
   top: 3vh;
@@ -74,7 +73,6 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* MAIN EMERALD BUTTON */
 .enter-btn {
   display: inline-block;
   margin-top: 22px;
@@ -114,7 +112,6 @@ body {
     inset 0 -8px 14px rgba(0, 42, 34, 0.24);
 }
 
-/* FOUNTAIN */
 .fountain {
   position: fixed;
   left: 50%;
@@ -134,7 +131,6 @@ body {
     drop-shadow(0 0 14px rgba(0, 224, 160, 0.04));
 }
 
-/* LOWER CONTENT AREA */
 .games-layer {
   position: absolute;
   left: 50%;
@@ -153,7 +149,6 @@ body {
   margin: 0 auto;
 }
 
-/* FEATURED GAME BUTTONS */
 .game-grid a {
   min-width: 110px;
   padding: 10px 16px;
@@ -214,7 +209,6 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* LARGE LAPTOP / SMALL DESKTOP */
 @media (max-width: 1100px) {
   .hero {
     top: 3vh;
@@ -230,7 +224,6 @@ body {
   }
 }
 
-/* TABLET */
 @media (max-width: 768px) {
   .hero {
     top: 2.5vh;
@@ -291,7 +284,6 @@ body {
   }
 }
 
-/* MOBILE */
 @media (max-width: 480px) {
   .hero {
     top: 2vh;
