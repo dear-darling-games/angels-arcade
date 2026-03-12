@@ -103,12 +103,12 @@ body {
   z-index: 1;
   pointer-events: none;
 
-  opacity: 0.58;
+  opacity: 0.56;
 
   mix-blend-mode: screen;
 
   filter:
-    brightness(0.7)
+    brightness(0.6)
     drop-shadow(0 0 10px rgba(0, 224, 160, 0.16))
     drop-shadow(0 0 22px rgba(0, 224, 160, 0.08));
 }
