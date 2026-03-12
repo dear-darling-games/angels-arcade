@@ -193,39 +193,44 @@
 
     .square.light {
       background:
-        radial-gradient(circle at 28% 24%, rgba(255,255,255,0.55), transparent 24%),
-        radial-gradient(circle at 74% 78%, rgba(255,255,255,0.16), transparent 22%),
-        linear-gradient(145deg, #f4eeff 0%, #e6dcf7 34%, #d9cdee 66%, #cdbfe7 100%);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+        radial-gradient(circle at 24% 22%, rgba(255,255,255,0.72), transparent 20%),
+        radial-gradient(circle at 72% 76%, rgba(255,255,255,0.22), transparent 18%),
+        linear-gradient(145deg, #fbf6ff 0%, #efe5ff 28%, #e2d4fb 58%, #d3c0f3 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.55),
+        inset 0 -8px 14px rgba(120, 86, 170, 0.12),
+        inset 0 0 0 1px rgba(255,255,255,0.12);
     }
 
     .square.light::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.14), transparent 36%, rgba(170,140,220,0.08) 72%, transparent 100%);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.18), transparent 34%, rgba(185,155,235,0.10) 68%, transparent 100%),
+        radial-gradient(circle at 52% 46%, rgba(255,255,255,0.10), transparent 42%);
       pointer-events: none;
     }
 
     .square.dark {
       background:
-        radial-gradient(circle at 30% 24%, rgba(255,255,255,0.14), transparent 34%),
-        linear-gradient(180deg, #167765, #0f5c4f 60%, #0b473e);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+        radial-gradient(circle at 28% 22%, rgba(255,255,255,0.16), transparent 22%),
+        linear-gradient(145deg, #115546 0%, #0b4036 42%, #082d26 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        inset 0 -8px 14px rgba(0,0,0,0.22),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     .square.dark::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.06) 48%, transparent 62%);
-      transform: translateX(-120%);
-      animation: shimmer 7s linear infinite;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.08), transparent 32%, rgba(255,255,255,0.03) 58%, transparent 100%),
+        radial-gradient(circle at 58% 42%, rgba(255,255,255,0.05), transparent 36%);
       pointer-events: none;
     }
-
-    @keyframes shimmer {
-      from { transform: translateX(-120%); }
       to { transform: translateX(120%); }
     }
 
@@ -286,22 +291,23 @@
     }
 
     .piece.white-piece {
-      color: #f7f1ff;
+      color: #f2e4ff;
       filter:
-        drop-shadow(0 0 12px rgba(247, 241, 255, 0.22))
-        drop-shadow(0 1px 0 rgba(255,255,255,0.25))
-        drop-shadow(0 5px 8px rgba(0,0,0,0.2));
+        drop-shadow(0 0 14px rgba(242, 228, 255, 0.30))
+        drop-shadow(0 0 3px rgba(255,255,255,0.42))
+        drop-shadow(0 2px 0 rgba(255,255,255,0.22))
+        drop-shadow(0 6px 10px rgba(0,0,0,0.20));
     }
 
     .piece.white-piece svg {
-      opacity: 0.98;
+      opacity: 0.995;
     }
 
     .piece.black-piece {
-      color: #08110f;
+      color: #040b0a;
       filter:
-        drop-shadow(0 1px 0 rgba(255,255,255,0.05))
-        drop-shadow(0 5px 8px rgba(0,0,0,0.22));
+        drop-shadow(0 1px 0 rgba(255,255,255,0.04))
+        drop-shadow(0 5px 8px rgba(0,0,0,0.28));
     }
 
     .sidebar {
@@ -390,6 +396,50 @@
     .meta-value {
       font-size: 0.98rem;
       font-weight: 600;
+    }
+
+    .captures-wrap {
+      display: grid;
+      gap: 12px;
+    }
+
+    .capture-row {
+      display: grid;
+      gap: 6px;
+    }
+
+    .capture-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .capture-box {
+      min-height: 58px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px;
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(212, 195, 255, 0.12);
+    }
+
+    .captured-piece {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .captured-piece .piece {
+      width: 100%;
+      height: 100%;
+      transform: none !important;
     }
 
     .moves {
@@ -627,6 +677,20 @@
       </section>
 
       <section class="panel">
+        <h2>Captured Pieces</h2>
+        <div class="captures-wrap">
+          <div class="capture-row">
+            <span class="capture-label">White captured</span>
+            <div id="whiteCaptures" class="capture-box"></div>
+          </div>
+          <div class="capture-row">
+            <span class="capture-label">Black captured</span>
+            <div id="blackCaptures" class="capture-box"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
         <h2>Move List</h2>
         <div class="moves">
           <table>
@@ -674,6 +738,8 @@
     const movesBodyEl = document.getElementById("movesBody");
     const promoOverlayEl = document.getElementById("promoOverlay");
     const promoOptionsEl = document.getElementById("promoOptions");
+    const whiteCapturesEl = document.getElementById("whiteCaptures");
+    const blackCapturesEl = document.getElementById("blackCaptures");
 
     const state = {
       board: [],
@@ -686,6 +752,7 @@
       legalTargets: [],
       orientation: "w",
       moveHistory: [],
+      captures: { w: [], b: [] },
       lastMove: null,
       result: null,
       pendingPromotion: null,
@@ -715,7 +782,8 @@
         fullmove: state.fullmove,
         lastMove: state.lastMove,
         result: state.result,
-        moveHistory: state.moveHistory
+        moveHistory: state.moveHistory,
+        captures: state.captures
       }));
     }
 
@@ -729,6 +797,7 @@
       state.lastMove = snapshot.lastMove;
       state.result = snapshot.result;
       state.moveHistory = snapshot.moveHistory;
+      state.captures = snapshot.captures;
       state.selected = null;
       state.legalTargets = [];
       state.pendingPromotion = null;
@@ -746,6 +815,7 @@
       state.selected = null;
       state.legalTargets = [];
       state.moveHistory = [];
+      state.captures = { w: [], b: [] };
       state.lastMove = null;
       state.result = null;
       state.pendingPromotion = null;
@@ -1112,6 +1182,10 @@
         state.result = null;
       }
 
+      if (move.captured) {
+        state.captures[movingColor].push(move.captured);
+      }
+
       const san = buildSan(move, boardBefore, promotionChoice, mateInfo);
       state.moveHistory.push({ san, color: movingColor });
 
@@ -1213,6 +1287,16 @@
       ranksEl.innerHTML = ranks.map(rank => `<span>${rank}</span>`).join("");
     }
 
+    function renderCaptures() {
+      whiteCapturesEl.innerHTML = state.captures.w.map(piece => `
+        <span class="captured-piece"><span class="piece black-piece">${PIECE_SVG[pieceType(piece)]}</span></span>
+      `).join("");
+
+      blackCapturesEl.innerHTML = state.captures.b.map(piece => `
+        <span class="captured-piece"><span class="piece white-piece">${PIECE_SVG[pieceType(piece)]}</span></span>
+      `).join("");
+    }
+
     function renderMoves() {
       const rows = [];
       for (let i = 0; i < state.moveHistory.length; i += 2) {
@@ -1278,6 +1362,7 @@
 
     function render() {
       renderBoard();
+      renderCaptures();
       renderMoves();
       updateStatus();
     }
@@ -1337,3 +1422,4 @@
   </script>
 </body>
 </html>
+
