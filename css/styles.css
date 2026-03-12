@@ -32,7 +32,6 @@ body {
   text-align: center;
 }
 
-/* TOP TEXT BLOCK */
 .hero {
   position: absolute;
   top: 4.5vh;
@@ -93,22 +92,23 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* CENTER FOUNTAIN - LOCKED TO SCREEN */
+/* FOUNTAIN */
 .fountain {
   position: fixed;
   left: 50%;
-  top: 58%;
+  top: 70%;
   transform: translate(-50%, -50%);
-  width: min(350px, 32vw);
+  width: min(175px, 16vw);
   z-index: 1;
   pointer-events: none;
-  opacity: 0.84;
+  opacity: 0.42;
+  mix-blend-mode: screen;
   filter:
-    drop-shadow(0 0 14px rgba(0, 224, 160, 0.18))
-    drop-shadow(0 0 28px rgba(0, 224, 160, 0.08));
+    drop-shadow(0 0 8px rgba(0, 224, 160, 0.10))
+    drop-shadow(0 0 16px rgba(0, 224, 160, 0.05));
 }
 
-/* BOTTOM BUTTON/TEXT LAYER */
+/* BOTTOM LAYER */
 .games-layer {
   position: absolute;
   left: 50%;
@@ -172,15 +172,16 @@ body {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.42);
 }
 
-/* LAPTOP / SMALLER DESKTOP */
+/* LARGE LAPTOP / SMALL DESKTOP */
 @media (max-width: 1100px) {
   .hero {
     top: 4vh;
   }
 
   .fountain {
-    width: min(320px, 38vw);
-    top: 60%;
+    top: 71%;
+    width: min(160px, 18vw);
+    opacity: 0.40;
   }
 
   .games-layer {
@@ -204,8 +205,12 @@ body {
   }
 
   .fountain {
-    width: min(290px, 52vw);
-    top: 60%;
+    top: 72%;
+    width: min(145px, 24vw);
+    opacity: 0.36;
+    filter:
+      drop-shadow(0 0 6px rgba(0, 224, 160, 0.08))
+      drop-shadow(0 0 12px rgba(0, 224, 160, 0.04));
   }
 
   .games-layer {
@@ -257,9 +262,12 @@ body {
   }
 
   .fountain {
-    width: min(250px, 62vw);
-    top: 61%;
-    opacity: 0.80;
+    top: 73%;
+    width: min(115px, 30vw);
+    opacity: 0.30;
+    filter:
+      drop-shadow(0 0 4px rgba(0, 224, 160, 0.06))
+      drop-shadow(0 0 8px rgba(0, 224, 160, 0.03));
   }
 
   .games-layer {
@@ -283,6 +291,12 @@ body {
     margin-top: 18px;
     font-size: 0.92rem;
   }
+
+  .credit {
+    margin-top: 12px;
+    font-size: 0.86rem;
+  }
+}
 
   .credit {
     margin-top: 12px;
