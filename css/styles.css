@@ -120,11 +120,16 @@ body {
 
   transform: translateX(-50%);
 
-  width: min(300px, 90%);
+  width: min(280px, 88%);
 
+  /* softer glow */
   filter:
-    drop-shadow(0 0 30px rgba(0,224,160,.6))
-    drop-shadow(0 0 60px rgba(0,224,160,.25));
+    drop-shadow(0 0 14px rgba(0,224,160,.35))
+    drop-shadow(0 0 28px rgba(0,224,160,.15));
+
+  opacity: .92;
+
+  pointer-events: none;
 
   z-index: 1;
 }
