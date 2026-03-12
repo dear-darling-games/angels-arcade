@@ -1,7 +1,6 @@
 :root {
   --text-main: #f7efff;
   --text-soft: #d7caea;
-
   --emerald: #00e0a0;
   --purple: #b266ff;
 }
@@ -19,215 +18,201 @@ body {
 body {
   font-family: Georgia, "Times New Roman", serif;
   color: var(--text-main);
-
-  background:
-    linear-gradient(rgba(4,4,10,0.25), rgba(4,4,12,0.65)),
-    url("../assets/assetscathedral-bg.png.png")
-    center center / cover no-repeat fixed;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
+  background:
+    linear-gradient(rgba(4, 4, 10, 0.28), rgba(4, 4, 12, 0.68)),
+    url("../assets/assetscathedral-bg.png.png") center center / cover no-repeat fixed;
 }
 
 .page-shell {
-  width: 100%;
-  max-width: 520px;
-  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 20px 40px;
 }
 
-/* REMOVE CARD LOOK */
 .arcade-card {
+  width: min(100%, 560px);
   position: relative;
 }
 
-/* TITLE */
+.corner,
+.corner-top-left,
+.corner-bottom-right {
+  display: none;
+}
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2.6rem, 6vw, 3.2rem);
-  letter-spacing: 0.05em;
-
+  font-size: clamp(3rem, 8vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
   color: #efdbff;
-
   text-shadow:
-    0 0 10px rgba(178,102,255,0.9),
-    0 0 25px rgba(138,43,226,0.45);
+    0 0 10px rgba(178, 102, 255, 0.82),
+    0 0 24px rgba(138, 43, 226, 0.35);
 }
 
 .tagline {
-  margin-top: 12px;
+  margin: 14px 0 0;
+  font-size: 1rem;
   color: var(--text-soft);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
 }
-
-/* ENTER BUTTON */
 
 .enter-btn {
   display: inline-block;
-  margin-top: 24px;
-  padding: 12px 28px;
-
+  margin-top: 26px;
+  padding: 14px 30px;
   border-radius: 999px;
   text-decoration: none;
-  font-weight: bold;
-  letter-spacing: .08em;
-
   color: #f6fff9;
-
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
   background:
-    linear-gradient(180deg,
-      rgba(16,89,58,.95),
-      rgba(8,48,32,.95)
-    );
-
-  border: 1px solid rgba(150,255,220,.6);
-
+    linear-gradient(180deg, rgba(16, 89, 58, 0.92), rgba(8, 48, 32, 0.94));
+  border: 1px solid rgba(150, 255, 220, 0.48);
   box-shadow:
-    0 0 16px rgba(0,224,160,.35),
-    inset 0 0 12px rgba(208,255,237,.1);
-
-  transition: transform .2s ease, box-shadow .2s ease;
+    0 0 12px rgba(0, 224, 160, 0.24),
+    inset 0 0 12px rgba(208, 255, 237, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .enter-btn:hover {
   transform: translateY(-2px);
-
   box-shadow:
-    0 0 26px rgba(0,224,160,.5),
-    inset 0 0 12px rgba(208,255,237,.15);
+    0 0 18px rgba(0, 224, 160, 0.32),
+    inset 0 0 12px rgba(208, 255, 237, 0.14);
 }
-
-/* FOUNTAIN AREA */
 
 .arcade-stage {
   position: relative;
-  margin-top: 40px;
-  min-height: 420px;
+  margin: 34px auto 0;
+  height: 470px;
 }
 
 .featured-label {
+  position: relative;
+  z-index: 3;
+  margin: 0 0 18px;
   color: #ebc8ff;
-  margin-bottom: 10px;
+  font-size: 0.96rem;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
 }
-
-/* FOUNTAIN */
 
 .fountain {
-  position: fixed;
-
+  position: absolute;
   left: 50%;
-  top: 55%;
-
-  transform: translate(-50%, -50%);
-
-  width: min(280px, 35vw);
-
-  opacity: .85;
-
+  top: 62px;
+  transform: translateX(-50%);
+  width: min(285px, 68%);
+  opacity: 0.86;
+  z-index: 1;
   pointer-events: none;
-
-  z-index: 0;
-
   filter:
-    drop-shadow(0 0 14px rgba(0,224,160,.25))
-    drop-shadow(0 0 30px rgba(0,224,160,.12));
+    drop-shadow(0 0 14px rgba(0, 224, 160, 0.22))
+    drop-shadow(0 0 28px rgba(0, 224, 160, 0.10));
 }
-/* GAME BUTTONS */
 
 .game-grid {
   position: absolute;
-
   left: 50%;
-  bottom: 30px;
-
+  bottom: 36px;
   transform: translateX(-50%);
-
+  z-index: 2;
+  width: min(360px, 92%);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
   gap: 12px;
-
-  width: min(340px, 92%);
-
-  z-index: 2;
 }
 
 .game-grid a {
-
-  min-width: 95px;
-
+  min-width: 104px;
   padding: 10px 16px;
-
   border-radius: 999px;
-
   text-decoration: none;
-
-  font-size: .92rem;
-
+  text-align: center;
   color: #f8f2ff;
-
+  font-size: 0.92rem;
   background:
-    linear-gradient(
-      180deg,
-      rgba(82,35,145,.96),
-      rgba(32,13,63,.96)
-    );
-
-  border: 1px solid rgba(217,178,255,.35);
-
+    linear-gradient(180deg, rgba(82, 35, 145, 0.94), rgba(32, 13, 63, 0.95));
+  border: 1px solid rgba(217, 178, 255, 0.30);
   box-shadow:
-    0 8px 20px rgba(0,0,0,.4),
-    0 0 12px rgba(178,102,255,.25);
-
+    0 8px 20px rgba(0, 0, 0, 0.34),
+    0 0 10px rgba(178, 102, 255, 0.18);
   transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    border-color .18s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
 }
 
 .game-grid a:hover {
-
-  transform: translateY(-3px);
-
-  border-color: rgba(0,224,160,.6);
-
+  transform: translateY(-2px);
+  border-color: rgba(0, 224, 160, 0.45);
   box-shadow:
-    0 10px 26px rgba(0,0,0,.45),
-    0 0 18px rgba(0,224,160,.2),
-    0 0 18px rgba(178,102,255,.35);
+    0 10px 24px rgba(0, 0, 0, 0.38),
+    0 0 14px rgba(0, 224, 160, 0.12),
+    0 0 14px rgba(178, 102, 255, 0.22);
 }
 
-/* TEXT BELOW */
-
 .room-copy {
-  margin-top: 12px;
+  margin: 8px auto 0;
+  max-width: 420px;
   color: var(--text-soft);
+  line-height: 1.4;
+  font-size: 0.98rem;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
 }
 
 .site-footer p {
-  margin-top: 14px;
-  font-size: .9rem;
+  margin: 14px 0 0;
   color: #d8caea;
+  font-size: 0.9rem;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
 }
 
-/* MOBILE */
+@media (max-width: 480px) {
+  .page-shell {
+    padding: 24px 16px 36px;
+  }
 
-@media (max-width:480px){
+  .hero h1 {
+    font-size: clamp(2.7rem, 12vw, 4rem);
+  }
 
   .arcade-stage {
-    min-height: 380px;
+    height: 430px;
+    margin-top: 28px;
+  }
+
+  .featured-label {
+    margin-bottom: 14px;
   }
 
   .fountain {
-    width: min(240px,90%);
+    width: min(250px, 78%);
+    top: 72px;
   }
 
   .game-grid {
+    width: min(320px, 96%);
     gap: 10px;
+    bottom: 30px;
   }
 
+  .game-grid a {
+    min-width: 92px;
+    font-size: 0.88rem;
+    padding: 9px 14px;
+  }
+
+  .room-copy {
+    max-width: 320px;
+  }
+}
   .game-grid a {
     min-width: 84px;
     font-size: .86rem;
