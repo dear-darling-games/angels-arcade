@@ -1161,6 +1161,12 @@
     });
 
     resetGame();
-  </script>
+ <script type="module">
+  import { db } from "../../js/firebase-init.js";
+
+  console.log("Firebase connected:", db);
+
+  // checkers code...
+</script>
 </body>
 </html>
