@@ -659,6 +659,12 @@
     </aside>
   </div>
 
+  <script type="module">
+    import { db } from "../../js/firebase-init.js";
+    window.arcadeDb = db;
+    console.log("Firebase connected:", db);
+  </script>
+
   <script>
     const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
@@ -1161,12 +1167,6 @@
     });
 
     resetGame();
- <script type="module">
-  import { db } from "../../js/firebase-init.js";
-
-  console.log("Firebase connected:", db);
-
-  // checkers code...
-</script>
+  </script>
 </body>
 </html>
