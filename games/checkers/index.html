@@ -1169,8 +1169,35 @@ document.getElementById("undoBtn").addEventListener("click", () => {
   restoreSnapshot(snapshot);
 });
 
-document.getElementById("createRoomBtn").addEventListener("click", () => {
-  alert("Create Room button works");
+document.getElementById("createRoomBtn").addEventListener("click", async () => {
+  const roomId = Math.random().toString(36).slice(2, 8).toUpperCase();
+
+  const roomData = {
+    gameId: "checkers",
+    roomId,
+    status: "waiting",
+    createdAt: Date.now(),
+    turn: state.turn,
+    result: state.result,
+    board: state.board,
+    moveHistory: state.moveHistory,
+    captures: state.captures,
+    host: {
+      role: "host",
+      side: "white"
+    }
+  };
+
+  try {
+    await window.arcadeDb.ref?.();
+  } catch (e) {
+    // ignore
+  }
+
+  const { ref, set } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
+  await set(ref(window.arcadeDb, "rooms/checkers/" + roomId), roomData);
+
+  alert("Room created: " + roomId);
 });
 
 document.getElementById("joinRoomBtn").addEventListener("click", () => {
