@@ -18,7 +18,6 @@
       --selected: #72e2b1;
       --move: rgba(114, 226, 177, 0.34);
       --capture: rgba(255, 126, 126, 0.42);
-      --check: rgba(212, 195, 255, 0.22);
       --button: #131313;
       --button-hover: #1d1d1d;
       --accent: #dac7ff;
@@ -241,7 +240,6 @@
     }
 
     .square.last-move { box-shadow: inset 0 0 0 999px rgba(212,195,255,0.14); }
-    .square.must-jump { box-shadow: inset 0 0 0 999px rgba(212,195,255,0.10); }
 
     .square::after {
       content: "";
@@ -620,11 +618,11 @@
           </div>
           <div class="meta-card">
             <span class="meta-label">Capture</span>
-            <span id="captureText" class="meta-value">No</span>
+            <span id="captureText" class="meta-value">Optional</span>
           </div>
           <div class="meta-card">
             <span class="meta-label">Chain Jump</span>
-            <span id="chainText" class="meta-value">No</span>
+            <span id="chainText" class="meta-value">Optional</span>
           </div>
         </div>
       </section>
@@ -656,7 +654,7 @@
       </section>
 
       <section class="panel footer-note">
-        Rules included: legal movement, forced captures, multiple jumps, kinging, win by elimination, and win by no legal moves.
+        Rules included: legal movement, optional captures, optional multi-jumps, kinging, win by elimination, and win by no legal moves.
       </section>
     </aside>
   </div>
@@ -765,7 +763,6 @@
       captures: { w: [], b: [] },
       lastMove: null,
       result: null,
-      pendingChain: null,
       undoStack: []
     };
 
@@ -791,22 +788,15 @@
       return board;
     }
 
-    function cloneBoard(board) {
-      return board.map(row => row.map(cell => cell ? { color: cell.color, king: cell.king } : null));
-    }
-
     function snapshotState() {
       return JSON.parse(JSON.stringify({
         board: state.board,
         turn: state.turn,
         orientation: state.orientation,
-        selected: state.selected,
-        legalTargets: state.legalTargets,
         moveHistory: state.moveHistory,
         captures: state.captures,
         lastMove: state.lastMove,
-        result: state.result,
-        pendingChain: state.pendingChain
+        result: state.result
       }));
     }
 
@@ -820,7 +810,6 @@
       state.captures = snapshot.captures;
       state.lastMove = snapshot.lastMove;
       state.result = snapshot.result;
-      state.pendingChain = snapshot.pendingChain;
       render();
     }
 
@@ -833,7 +822,6 @@
       state.captures = { w: [], b: [] };
       state.lastMove = null;
       state.result = null;
-      state.pendingChain = null;
       state.undoStack = [];
       render();
     }
@@ -868,7 +856,7 @@
       return piece.king ? CHECKER_SVG.kingBlack : CHECKER_SVG.manBlack;
     }
 
-    function getMovesForPiece(board, r, c, chainOnly = false) {
+    function getMovesForPiece(board, r, c) {
       const piece = board[r][c];
       if (!piece) return [];
 
@@ -880,6 +868,16 @@
         const nc = c + dc;
         const jr = r + dr * 2;
         const jc = c + dc * 2;
+
+        if (inBounds(nr, nc) && !board[nr][nc]) {
+          moves.push({
+            from: { r, c },
+            to: { r: nr, c: nc },
+            captured: [],
+            isCapture: false,
+            path: [{ r, c }, { r: nr, c: nc }]
+          });
+        }
 
         if (inBounds(jr, jc)) {
           const jumped = board[nr][nc];
@@ -896,47 +894,25 @@
         }
       }
 
-      if (chainOnly) return moves.filter(m => m.isCapture);
-      if (moves.length) return moves;
-
-      for (const [dr, dc] of dirs) {
-        const nr = r + dr;
-        const nc = c + dc;
-        if (inBounds(nr, nc) && !board[nr][nc]) {
-          moves.push({
-            from: { r, c },
-            to: { r: nr, c: nc },
-            captured: [],
-            isCapture: false,
-            path: [{ r, c }, { r: nr, c: nc }]
-          });
-        }
-      }
-
       return moves;
     }
 
-    function getAllLegalMoves(board, color, forcedFrom = null) {
+    function getAllLegalMoves(board, color) {
       const all = [];
-      const captures = [];
 
       for (let r = 0; r < 8; r++) {
         for (let c = 0; c < 8; c++) {
           const piece = board[r][c];
           if (!piece || piece.color !== color) continue;
-          if (forcedFrom && (forcedFrom.r !== r || forcedFrom.c !== c)) continue;
 
-          const moves = getMovesForPiece(board, r, c, Boolean(forcedFrom));
+          const moves = getMovesForPiece(board, r, c);
           for (const move of moves) {
             all.push(move);
-            if (move.isCapture) captures.push(move);
           }
         }
       }
 
-      if (captures.length) return captures;
-      if (forcedFrom) return [];
-      return all.filter(m => !m.isCapture);
+      return all;
     }
 
     function pieceCount(board, color) {
@@ -969,11 +945,6 @@
     }
 
     function getSelectedPieceMoves(r, c) {
-      if (state.pendingChain) {
-        if (state.pendingChain.r !== r || state.pendingChain.c !== c) return [];
-        return getAllLegalMoves(state.board, state.turn, { r, c });
-      }
-
       const allMoves = getAllLegalMoves(state.board, state.turn);
       return allMoves.filter(m => m.from.r === r && m.from.c === c);
     }
@@ -992,10 +963,7 @@
         return;
       }
 
-      const legal = state.pendingChain
-        ? getAllLegalMoves(state.board, state.turn, state.pendingChain)
-        : getAllLegalMoves(state.board, state.turn);
-
+      const legal = getAllLegalMoves(state.board, state.turn);
       if (!legal.length) {
         state.result = `${colorName(opposite(state.turn))} wins`;
         return;
@@ -1006,24 +974,15 @@
 
     function updateStatus() {
       const currentSide = colorName(state.turn);
-      const forcedMoves = state.pendingChain
-        ? getAllLegalMoves(state.board, state.turn, state.pendingChain)
-        : getAllLegalMoves(state.board, state.turn);
-
-      const captureRequired = forcedMoves.some(m => m.isCapture);
 
       turnTextEl.textContent = currentSide;
       resultTextEl.textContent = state.result || "In progress";
-      captureTextEl.textContent = captureRequired ? "Yes" : "No";
-      chainTextEl.textContent = state.pendingChain ? "Yes" : "No";
+      captureTextEl.textContent = "Optional";
+      chainTextEl.textContent = "Optional";
 
       let status = `${currentSide} to move`;
       if (state.result) {
         status = state.result;
-      } else if (state.pendingChain) {
-        status = `${currentSide} must continue jump`;
-      } else if (captureRequired) {
-        status = `${currentSide} to move — capture required`;
       }
       statusPillEl.textContent = status;
     }
@@ -1067,14 +1026,6 @@
       const rows = state.orientation === "w" ? [...Array(8).keys()] : [...Array(8).keys()].reverse();
       const cols = state.orientation === "w" ? [...Array(8).keys()] : [...Array(8).keys()].reverse();
 
-      const forcedMoves = state.pendingChain
-        ? getAllLegalMoves(state.board, state.turn, state.pendingChain)
-        : getAllLegalMoves(state.board, state.turn);
-
-      const mustJumpSquares = new Set(
-        forcedMoves.filter(m => m.isCapture).map(m => `${m.from.r},${m.from.c}`)
-      );
-
       boardEl.innerHTML = "";
 
       for (const r of rows) {
@@ -1091,10 +1042,6 @@
 
           if (state.lastMove && (sameSquare(state.lastMove.from, { r, c }) || sameSquare(state.lastMove.to, { r, c }))) {
             square.classList.add("last-move");
-          }
-
-          if (mustJumpSquares.has(`${r},${c}`) && !state.result) {
-            square.classList.add("must-jump");
           }
 
           const targetMove = state.legalTargets.find(m => m.to.r === r && m.to.c === c);
@@ -1179,23 +1126,8 @@
 
       const becameKing = crownIfNeeded(piece, move.to.r);
       state.lastMove = { from: move.from, to: move.to };
+      state.moveHistory.push({ color: piece.color, notation: notationForMove(move, becameKing) });
 
-      let notation = notationForMove(move, becameKing);
-
-      if (move.isCapture) {
-        const nextJumps = getAllLegalMoves(board, piece.color, { r: move.to.r, c: move.to.c });
-        if (nextJumps.length) {
-          state.pendingChain = { r: move.to.r, c: move.to.c };
-          state.selected = { r: move.to.r, c: move.to.c };
-          state.legalTargets = nextJumps;
-          state.moveHistory.push({ color: piece.color, notation: notation + "…" });
-          render();
-          return;
-        }
-      }
-
-      state.moveHistory.push({ color: piece.color, notation });
-      state.pendingChain = null;
       state.selected = null;
       state.legalTargets = [];
       state.turn = opposite(state.turn);
