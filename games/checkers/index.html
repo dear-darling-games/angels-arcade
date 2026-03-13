@@ -1156,17 +1156,30 @@
       restoreSnapshot(snapshot);
     });
 
-    document.getElementById("homeBtn").addEventListener("click", () => {
-      window.location.href = "../../index.html";
-    });
+   document.getElementById("newGameBtn").addEventListener("click", resetGame);
 
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        state.selected = null;
-        state.legalTargets = [];
-        render();
-      }
-    });
+document.getElementById("flipBtn").addEventListener("click", () => {
+  state.orientation = state.orientation === "w" ? "b" : "w";
+  render();
+});
+
+document.getElementById("undoBtn").addEventListener("click", () => {
+  if (!state.undoStack.length) return;
+  const snapshot = state.undoStack.pop();
+  restoreSnapshot(snapshot);
+});
+
+document.getElementById("createRoomBtn").addEventListener("click", () => {
+  alert("Create Room button works");
+});
+
+document.getElementById("joinRoomBtn").addEventListener("click", () => {
+  alert("Join Room button works");
+});
+
+document.getElementById("homeBtn").addEventListener("click", () => {
+  window.location.href = "../../index.html";
+});
 
     resetGame();
   </script>
