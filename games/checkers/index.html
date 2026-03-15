@@ -597,14 +597,14 @@
     <aside class="sidebar">
       <section class="panel">
         <h2>Controls</h2>
-       <div class="controls">
-  <button id="newGameBtn" class="primary">New Game</button>
-  <button id="undoBtn">Undo Move</button>
-  <button id="flipBtn">Flip Board</button>
-  <button id="createRoomBtn">Create Room</button>
-  <button id="joinRoomBtn">Join Room</button>
-  <button id="homeBtn" class="home-btn">Go Back Home</button>
-</div>
+        <div class="controls">
+          <button id="newGameBtn" class="primary">New Game</button>
+          <button id="undoBtn">Undo Move</button>
+          <button id="flipBtn">Flip Board</button>
+          <button id="createRoomBtn">Create Room</button>
+          <button id="joinRoomBtn">Join Room</button>
+          <button id="homeBtn" class="home-btn">Go Back Home</button>
+        </div>
       </section>
 
       <section class="panel">
@@ -1156,84 +1156,85 @@
       restoreSnapshot(snapshot);
     });
 
-   document.getElementById("newGameBtn").addEventListener("click", resetGame);
+    document.getElementById("createRoomBtn").addEventListener("click", async () => {
+      const roomId = Math.random().toString(36).slice(2, 8).toUpperCase();
 
-document.getElementById("flipBtn").addEventListener("click", () => {
-  state.orientation = state.orientation === "w" ? "b" : "w";
-  render();
-});
+      const safeBoard = state.board.map(row =>
+        row.map(cell => {
+          if (!cell) return 0;
+          return {
+            color: cell.color,
+            king: cell.king
+          };
+        })
+      );
 
-document.getElementById("undoBtn").addEventListener("click", () => {
-  if (!state.undoStack.length) return;
-  const snapshot = state.undoStack.pop();
-  restoreSnapshot(snapshot);
-});
+      const roomData = {
+        gameId: "checkers",
+        roomId,
+        status: "waiting",
+        createdAt: Date.now(),
+        turn: state.turn,
+        result: state.result,
+        board: safeBoard,
+        moveHistory: state.moveHistory || [],
+        captures: state.captures || { w: [], b: [] },
+        host: {
+          role: "host",
+          side: "white"
+        }
+      };
 
-document.getElementById("createRoomBtn").addEventListener("click", async () => {
-  const roomId = Math.random().toString(36).slice(2, 8).toUpperCase();
+      const { ref, set } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
+      await set(ref(window.arcadeDb, "rooms/checkers/" + roomId), roomData);
 
-  const roomData = {
-    gameId: "checkers",
-    roomId,
-    status: "waiting",
-    createdAt: Date.now(),
-    turn: state.turn,
-    result: state.result,
-    board: state.board,
-    moveHistory: state.moveHistory,
-    captures: state.captures,
-    host: {
-      role: "host",
-      side: "white"
-    }
-  };
+      alert("Room created: " + roomId);
+    });
 
-  try {
-    await window.arcadeDb.ref?.();
-  } catch (e) {
-    // ignore
-  }
+    document.getElementById("joinRoomBtn").addEventListener("click", async () => {
+      const roomId = prompt("Enter room code:");
 
-  const { ref, set } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
-  await set(ref(window.arcadeDb, "rooms/checkers/" + roomId), roomData);
+      if (!roomId) return;
 
-  alert("Room created: " + roomId);
-});
+      const cleanRoomId = roomId.trim().toUpperCase();
 
-document.getElementById("joinRoomBtn").addEventListener("click", async () => {
-  const roomId = prompt("Enter room code:");
+      const { ref, get } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
+      const snapshot = await get(ref(window.arcadeDb, "rooms/checkers/" + cleanRoomId));
 
-  if (!roomId) return;
+      if (!snapshot.exists()) {
+        alert("Room not found.");
+        return;
+      }
 
-  const cleanRoomId = roomId.trim().toUpperCase();
+      const roomData = snapshot.val();
 
-  const { ref, get } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
-  const snapshot = await get(ref(window.arcadeDb, "rooms/checkers/" + cleanRoomId));
+      const loadedBoard = roomData.board.map(row =>
+        row.map(cell => {
+          if (cell === 0) return null;
+          return {
+            color: cell.color,
+            king: cell.king
+          };
+        })
+      );
 
-  if (!snapshot.exists()) {
-    alert("Room not found.");
-    return;
-  }
+      state.board = loadedBoard;
+      state.turn = roomData.turn;
+      state.moveHistory = roomData.moveHistory || [];
+      state.captures = roomData.captures || { w: [], b: [] };
+      state.result = roomData.result || null;
+      state.selected = null;
+      state.legalTargets = [];
+      state.lastMove = null;
 
-  const roomData = snapshot.val();
+      render();
 
-  state.board = roomData.board;
-  state.turn = roomData.turn;
-  state.moveHistory = roomData.moveHistory || [];
-  state.captures = roomData.captures || { w: [], b: [] };
-  state.result = roomData.result || null;
-  state.selected = null;
-  state.legalTargets = [];
-  state.lastMove = null;
+      alert("Joined room: " + cleanRoomId);
+    });
 
-  render();
-
-  alert("Joined room: " + cleanRoomId);
-});
-
-document.getElementById("homeBtn").addEventListener("click", () => {
-  window.location.href = "../../index.html";
-});
+    document.getElementById("homeBtn").addEventListener("click", () => {
+      window.location.href = "../../index.html";
+    });
 
     resetGame();
   </script>
