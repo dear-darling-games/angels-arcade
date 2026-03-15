@@ -1200,8 +1200,35 @@ document.getElementById("createRoomBtn").addEventListener("click", async () => {
   alert("Room created: " + roomId);
 });
 
-document.getElementById("joinRoomBtn").addEventListener("click", () => {
-  alert("Join Room button works");
+document.getElementById("joinRoomBtn").addEventListener("click", async () => {
+  const roomId = prompt("Enter room code:");
+
+  if (!roomId) return;
+
+  const cleanRoomId = roomId.trim().toUpperCase();
+
+  const { ref, get } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
+  const snapshot = await get(ref(window.arcadeDb, "rooms/checkers/" + cleanRoomId));
+
+  if (!snapshot.exists()) {
+    alert("Room not found.");
+    return;
+  }
+
+  const roomData = snapshot.val();
+
+  state.board = roomData.board;
+  state.turn = roomData.turn;
+  state.moveHistory = roomData.moveHistory || [];
+  state.captures = roomData.captures || { w: [], b: [] };
+  state.result = roomData.result || null;
+  state.selected = null;
+  state.legalTargets = [];
+  state.lastMove = null;
+
+  render();
+
+  alert("Joined room: " + cleanRoomId);
 });
 
 document.getElementById("homeBtn").addEventListener("click", () => {
