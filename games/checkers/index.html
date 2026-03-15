@@ -626,6 +626,14 @@
             <span class="meta-label">Chain Jump</span>
             <span id="chainText" class="meta-value">Optional</span>
           </div>
+          <div class="meta-card">
+            <span class="meta-label">Room</span>
+            <span id="roomText" class="meta-value">Offline</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">You Are</span>
+            <span id="playerText" class="meta-value">Solo</span>
+          </div>
         </div>
       </section>
 
@@ -757,6 +765,8 @@
     const resultTextEl = document.getElementById("resultText");
     const captureTextEl = document.getElementById("captureText");
     const chainTextEl = document.getElementById("chainText");
+    const roomTextEl = document.getElementById("roomText");
+    const playerTextEl = document.getElementById("playerText");
     const movesBodyEl = document.getElementById("movesBody");
     const whiteCapturesEl = document.getElementById("whiteCaptures");
     const blackCapturesEl = document.getElementById("blackCaptures");
@@ -771,7 +781,11 @@
       captures: { w: [], b: [] },
       lastMove: null,
       result: null,
-      undoStack: []
+      undoStack: [],
+      roomId: null,
+      playerRole: "solo",
+      playerSide: null,
+      roomStatus: "offline"
     };
 
     function createPiece(color, king = false) {
@@ -831,6 +845,10 @@
       state.lastMove = null;
       state.result = null;
       state.undoStack = [];
+      state.roomId = null;
+      state.playerRole = "solo";
+      state.playerSide = null;
+      state.roomStatus = "offline";
       render();
     }
 
@@ -987,6 +1005,15 @@
       resultTextEl.textContent = state.result || "In progress";
       captureTextEl.textContent = "Optional";
       chainTextEl.textContent = "Optional";
+      roomTextEl.textContent = state.roomId ? `${state.roomStatus} (${state.roomId})` : "Offline";
+
+      if (state.playerRole === "host") {
+        playerTextEl.textContent = "Host / White";
+      } else if (state.playerRole === "guest") {
+        playerTextEl.textContent = "Guest / Black";
+      } else {
+        playerTextEl.textContent = "Solo";
+      }
 
       let status = `${currentSide} to move`;
       if (state.result) {
@@ -1143,23 +1170,8 @@
       render();
     }
 
-    document.getElementById("newGameBtn").addEventListener("click", resetGame);
-
-    document.getElementById("flipBtn").addEventListener("click", () => {
-      state.orientation = state.orientation === "w" ? "b" : "w";
-      render();
-    });
-
-    document.getElementById("undoBtn").addEventListener("click", () => {
-      if (!state.undoStack.length) return;
-      const snapshot = state.undoStack.pop();
-      restoreSnapshot(snapshot);
-    });
-
-    document.getElementById("createRoomBtn").addEventListener("click", async () => {
-      const roomId = Math.random().toString(36).slice(2, 8).toUpperCase();
-
-      const safeBoard = state.board.map(row =>
+    function buildSafeBoard() {
+      return state.board.map(row =>
         row.map(cell => {
           if (!cell) return 0;
           return {
@@ -1168,46 +1180,9 @@
           };
         })
       );
+    }
 
-      const roomData = {
-        gameId: "checkers",
-        roomId,
-        status: "waiting",
-        createdAt: Date.now(),
-        turn: state.turn,
-        result: state.result,
-        board: safeBoard,
-        moveHistory: state.moveHistory || [],
-        captures: state.captures || { w: [], b: [] },
-        host: {
-          role: "host",
-          side: "white"
-        }
-      };
-
-      const { ref, set } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
-      await set(ref(window.arcadeDb, "rooms/checkers/" + roomId), roomData);
-
-      alert("Room created: " + roomId);
-    });
-
-    document.getElementById("joinRoomBtn").addEventListener("click", async () => {
-      const roomId = prompt("Enter room code:");
-
-      if (!roomId) return;
-
-      const cleanRoomId = roomId.trim().toUpperCase();
-
-      const { ref, get } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
-      const snapshot = await get(ref(window.arcadeDb, "rooms/checkers/" + cleanRoomId));
-
-      if (!snapshot.exists()) {
-        alert("Room not found.");
-        return;
-      }
-
-      const roomData = snapshot.val();
-
+    function loadBoardFromRoom(roomData) {
       const loadedBoard = roomData.board.map(row =>
         row.map(cell => {
           if (cell === 0) return null;
@@ -1226,6 +1201,88 @@
       state.selected = null;
       state.legalTargets = [];
       state.lastMove = null;
+      state.roomId = roomData.roomId || null;
+      state.roomStatus = roomData.status || "waiting";
+    }
+
+    document.getElementById("newGameBtn").addEventListener("click", resetGame);
+
+    document.getElementById("flipBtn").addEventListener("click", () => {
+      state.orientation = state.orientation === "w" ? "b" : "w";
+      render();
+    });
+
+    document.getElementById("undoBtn").addEventListener("click", () => {
+      if (!state.undoStack.length) return;
+      const snapshot = state.undoStack.pop();
+      restoreSnapshot(snapshot);
+    });
+
+    document.getElementById("createRoomBtn").addEventListener("click", async () => {
+      const roomId = Math.random().toString(36).slice(2, 8).toUpperCase();
+
+      const roomData = {
+        gameId: "checkers",
+        roomId,
+        status: "waiting",
+        createdAt: Date.now(),
+        turn: state.turn,
+        result: state.result,
+        board: buildSafeBoard(),
+        moveHistory: state.moveHistory || [],
+        captures: state.captures || { w: [], b: [] },
+        host: {
+          role: "host",
+          side: "white"
+        }
+      };
+
+      const { ref, set } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
+      await set(ref(window.arcadeDb, "rooms/checkers/" + roomId), roomData);
+
+      state.roomId = roomId;
+      state.playerRole = "host";
+      state.playerSide = "w";
+      state.roomStatus = "waiting";
+      render();
+
+      alert("Room created: " + roomId);
+    });
+
+    document.getElementById("joinRoomBtn").addEventListener("click", async () => {
+      const roomId = prompt("Enter room code:");
+
+      if (!roomId) return;
+
+      const cleanRoomId = roomId.trim().toUpperCase();
+
+      const { ref, get, update } = await import("https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js");
+      const roomRef = ref(window.arcadeDb, "rooms/checkers/" + cleanRoomId);
+      const snapshot = await get(roomRef);
+
+      if (!snapshot.exists()) {
+        alert("Room not found.");
+        return;
+      }
+
+      const roomData = snapshot.val();
+
+      await update(roomRef, {
+        status: "playing",
+        guest: {
+          role: "guest",
+          side: "black",
+          joinedAt: Date.now()
+        }
+      });
+
+      const refreshedSnapshot = await get(roomRef);
+      const refreshedRoomData = refreshedSnapshot.val();
+
+      loadBoardFromRoom(refreshedRoomData);
+
+      state.playerRole = "guest";
+      state.playerSide = "b";
 
       render();
 
