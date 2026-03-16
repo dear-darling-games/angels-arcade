@@ -5,13 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Angel's Arcade</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      margin-bottom: 10px;
+    }
+
+    .hero-buttons .enter-btn {
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
   <main class="scene">
     <header class="hero">
       <h1>ANGEL'S ARCADE</h1>
       <p class="tagline">Wanna play, Sir?</p>
-      <a class="enter-btn" href="#games">CREATE ROOM</a>
+
+      <div class="hero-buttons">
+        <a class="enter-btn" href="#games">CREATE ROOM</a>
+        <a class="enter-btn" href="/games/checkers/">REJOIN ROOM</a>
+      </div>
+
       <p class="featured-label">✦ Featured Games ✦</p>
     </header>
 
