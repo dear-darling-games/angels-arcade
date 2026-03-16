@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter Password — Angel's Arcade</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: rgba(255, 255, 255, 0.04);
+      --panel-border: rgba(212, 195, 255, 0.18);
+      --text: #f3ecff;
+      --muted: #cabee7;
+      --button: #131313;
+      --button-hover: #1d1d1d;
+      --accent: #dac7ff;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+      --green1: #115546;
+      --green2: #0b4036;
+      --green3: #082d26;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top, rgba(50, 90, 68, 0.18), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(211, 191, 245, 0.08), transparent 20%),
+        #050505;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .gate {
+      width: min(520px, 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f4edff;
+    }
+
+    p {
+      margin: 0 0 22px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(212, 195, 255, 0.2);
+      background: #101010;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    input[type="password"]:focus {
+      border-color: rgba(212, 195, 255, 0.4);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    button {
+      width: 100%;
+      appearance: none;
+      border: 1px solid rgba(212, 195, 255, 0.18);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font: inherit;
+      cursor: pointer;
+      color: #f2e4ff;
+      background: linear-gradient(145deg, var(--green1) 0%, var(--green2) 42%, var(--green3) 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        inset 0 -8px 14px rgba(0,0,0,0.18);
+      transition: transform 0.06s ease, filter 0.2s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.06);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .error {
+      min-height: 24px;
+      margin-top: 14px;
+      text-align: center;
+      color: #ffb4c7;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="gate">
+    <h1>Angel's Arcade</h1>
+    <p>Enter password</p>
+
+    <form id="passwordForm">
+      <label for="passwordInput">Password</label>
+      <input id="passwordInput" type="password" autocomplete="current-password" />
+      <button type="submit">Enter Angel's Arcade</button>
+      <div id="errorText" class="error"></div>
+    </form>
+  </main>
+
+  <script>
+    const SITE_PASSWORD = "DanPlays-with-Angel!";
+    const ACCESS_KEY = "angels_arcade_access_granted";
+
+    if (sessionStorage.getItem(ACCESS_KEY) === "yes") {
+      window.location.href = "arcade.html";
+    }
+
+    const form = document.getElementById("passwordForm");
+    const passwordInput = document.getElementById("passwordInput");
+    const errorText = document.getElementById("errorText");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const entered = passwordInput.value;
+
+      if (entered === SITE_PASSWORD) {
+        sessionStorage.setItem(ACCESS_KEY, "yes");
+        window.location.href = "arcade.html";
+      } else {
+        errorText.textContent = "Incorrect password.";
+        passwordInput.value = "";
+        passwordInput.focus();
+      }
+    });
+
+    passwordInput.focus();
+  </script>
+</body>
+</html>
