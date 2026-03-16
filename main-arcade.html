@@ -15,28 +15,24 @@
       margin: 18px 0 14px;
     }
 
-    .hero-main-btn,
-    .hero-secondary-btn {
+    .hero-button-row a {
       display: inline-block;
-      min-width: 220px;
       text-align: center;
       text-decoration: none;
     }
 
-    .hero-main-btn {
-      class: enter-btn;
-    }
-
     .hero-secondary-btn {
+      min-width: 220px;
       padding: 16px 28px;
       border-radius: 999px;
       background: linear-gradient(180deg, #8f7cff 0%, #6f5fe0 100%);
-      color: #fff;
+      color: #ffffff;
       font-weight: 700;
       font-size: 1.05rem;
       letter-spacing: 0.04em;
       box-shadow: 0 0 18px rgba(143, 124, 255, 0.45);
       border: 1px solid rgba(255, 255, 255, 0.25);
+      font-family: inherit;
     }
 
     .hero-secondary-btn:hover {
@@ -52,7 +48,7 @@
       <p class="tagline">Wanna play, Sir?</p>
 
       <div class="hero-button-row">
-        <a class="enter-btn hero-main-btn" href="#games">CREATE ROOM</a>
+        <a class="enter-btn" href="#games">CREATE ROOM</a>
         <a class="hero-secondary-btn" href="/games/checkers/">REJOIN ROOM</a>
       </div>
 
